@@ -43,8 +43,8 @@ let colorPlayer = "blue";
 let player = new Rectangulo (posX, posY, anchoPlayer, altoPlayer, colorPlayer, 2, "Player");
 player.draw(context);
 // PARED
-let pared = new Rectangulo (400, 10, 100, 400, "black", 2, "Pared");
-pared.draw(context);
+let pasto = new Rectangulo (300, 10, 200, 300, "green", 2, "Pasto");
+pasto.draw(context);
 
 function move (e) {
     // var keyCode = (window.event) ? e.which : e.keyCode;
@@ -70,8 +70,8 @@ function move (e) {
     canvas.width = canvas.width;
     let player = new Rectangulo (posX, posY, anchoPlayer, altoPlayer, colorPlayer, 2, "Player");
     player.draw(context);
-    let pared = new Rectangulo (400, 0, 100, 400, "black", 2, "Pared");
-    pared.draw(context);
+    let pasto = new Rectangulo (300, 10, 200, 300, "green", 2, "Pasto");
+    pasto.draw(context);
     console.log("posX: "+ posX + " | posY: " + posY)
 
 }
