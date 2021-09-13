@@ -23,6 +23,10 @@ const playerSprite = new Image();
 playerSprite.src = "img/player2.png";
 const imagenFondo = new Image();
 imagenFondo.src = "img/fondo.png";
+const pasto = new Image();
+pasto.src = "img/pasto.png";
+
+// Personaje, Movimiento E Imagen de fondo
 
 function drawSprite (img, sX, sY, sW, sH, dX, dY, dW, dH) {
     context.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
@@ -84,7 +88,10 @@ function animate () {
     elapsed = now - then;
     if (elapsed > fpsInterval) {
         then = now - (elapsed % fpsInterval);
-        context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height)
+        context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
+        creaPasto(300, 100, 5, 3);
+        creaPasto(600,50, 6, 2);
+        creaPasto(50, 250, 6, 4);
         drawSprite(playerSprite, player.ancho * player.frameX, player.alto * player.frameY, player.ancho, player.alto, player.posX, player.posY, player.ancho/1.8, player.alto/1.8);
         requestAnimationFrame(animate);
         movePlayer();
@@ -94,8 +101,24 @@ function animate () {
 
 startAnimating(22);
 
+// Pasto y sus funcionalidades
+// Funcion que crea seccion de pasto como matriz rectangular
+function creaPasto (posX, posY, nHorizontal, nVertical) {
+    for (let x = posX; x < posX + nHorizontal * 21; x += 21) {
+        for (let y = posY; y < posY + nVertical * 21; y += 21) {
+            context.drawImage(pasto, x, y, 21, 21);
+        }
+    }
+}
 
-
+// Funcion que da info de los pixeles que ocupa cada seccion de pasto (manual):
+// Con esta info se le puede dar funcionalidad despues
+function infoPasto (posX, posY, nHorizontal, nVertical) {
+    console.log(`Seccion de pasto iniciada en x: ${posX} y: ${posY}`)
+    console.log("Pos Inicial X: " + posX + " | Pos Final X: " + (posX + nHorizontal * 21))
+    console.log("Pos Inicial Y: " + posY + " | Pos Final Y: " + (posY + nVertical * 21))
+}
+infoPasto(300,100,5,3);
 /*function move (e) {
     // var keyCode = (window.event) ? e.which : e.keyCode;
     // alert(keyCode);
