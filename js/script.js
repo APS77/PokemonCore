@@ -62,7 +62,7 @@ function movePlayer () {  // W S A D (en ese orden)
     }
     if (keys[68]) {
         player.frameY = 2;
-        if (player.posX < canvas.width - player.ancho/2) {
+        if (player.posX < canvas.width - player.ancho/2.1) {
             player.posX += player.velocidad;
         }
     }
@@ -118,7 +118,8 @@ function infoPasto (posX, posY, nHorizontal, nVertical) {
     console.log("Pos Inicial X: " + posX + " | Pos Final X: " + (posX + nHorizontal * 21))
     console.log("Pos Inicial Y: " + posY + " | Pos Final Y: " + (posY + nVertical * 21))
 }
-infoPasto(300,100,5,3);
+// infoPasto(300,100,5,3);
+
 /*function move (e) {
     // var keyCode = (window.event) ? e.which : e.keyCode;
     // alert(keyCode);
