@@ -21,6 +21,7 @@ class Rectangulo {
     }
 
     draw (context) {
+        context.beginPath();
         context.strokeStyle = this.color;
         context.lineWidth = this.grosor;
         context.font = "15px Arial";
@@ -32,5 +33,47 @@ class Rectangulo {
     }
 }
 
-let miRectangulo = new Rectangulo (100, 50, 100, 100, "blue", 5, "Player");
-miRectangulo.draw(context);
+
+// PLAYER
+let posX = 100;
+let posY = 50;
+let anchoPlayer = 50;
+let altoPlayer = 50;
+let colorPlayer = "blue";
+let player = new Rectangulo (posX, posY, anchoPlayer, altoPlayer, colorPlayer, 2, "Player");
+player.draw(context);
+// PARED
+let pared = new Rectangulo (400, 10, 100, 400, "black", 2, "Pared");
+pared.draw(context);
+
+function move (e) {
+    // var keyCode = (window.event) ? e.which : e.keyCode;
+    // alert(keyCode);
+    let velocidad = 10;
+    // ARRIBA = W
+    if (e.keyCode  == 87) {
+        posY -= velocidad;
+    }
+    // ABAJO = S
+    if (e.keyCode  == 83) {
+        posY += velocidad;
+    }
+    // IZQUIERDA = A
+    if (e.keyCode  == 65) {
+        posX -= velocidad;
+    }
+    // DERECHA = D
+    if (e.keyCode  == 68) {
+        posX += velocidad;
+    }
+
+    canvas.width = canvas.width;
+    let player = new Rectangulo (posX, posY, anchoPlayer, altoPlayer, colorPlayer, 2, "Player");
+    player.draw(context);
+    let pared = new Rectangulo (400, 0, 100, 400, "black", 2, "Pared");
+    pared.draw(context);
+    console.log("posX: "+ posX + " | posY: " + posY)
+
+}
+
+document.onkeydown = move;
