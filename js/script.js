@@ -9,7 +9,6 @@ canvas.width = 760;
 
 const keys = [];
 
-//------------------------------------------------------------------------------------------
 const player = {
     posX: -6,
     posY: 30,
@@ -96,57 +95,9 @@ function animate () {
 startAnimating(22);
 
 
-/*class Player {
-    constructor (posX, posY) {
-        this.posX = posX;
-        this.posY = posY;
-        this.ancho = 123.75;
-        this.alto = 128.75;
-    }
-    draw (context) {
-        context.beginPath();
-        context.strokeStyle = "blue";
-        context.lineWidth = 2;
-        context.font = "15px Arial";
-        context.textAlign = "center";
-        context.textBaseline = "middle";
-        context.fillText("Player", (this.posX + 50/2)  , (this.posY + 50/2));
-        context.rect(this.posX, this.posY, 50, 50);
-        context.stroke();
-    }
-}
-let posX = 20;
-let posY = 20;
-let player1 = new Player (posX, posY);
-player1.draw(context);
-*/
-//------------------------------------------------------------------------------------------
+
 /*function move (e) {
     // var keyCode = (window.event) ? e.which : e.keyCode;
     // alert(keyCode);
-    let velocidad = 15;
-    // ARRIBA = W
-    if (e.keyCode  == 87) {
-        posY -= velocidad;
-    }
-    // ABAJO = S
-    if (e.keyCode  == 83) {
-        posY += velocidad;
-    }
-    // IZQUIERDA = A
-    if (e.keyCode  == 65) {
-        posX -= velocidad;
-    }
-    // DERECHA = D
-    if (e.keyCode  == 68) {
-        posX += velocidad;
-    }
-
-    canvas.width = canvas.width;
-    let player1 = new Player (posX, posY);
-    player1.draw(context);
-    console.log("posX: "+ posX + " | posY: " + posY)
-
 }
-
 document.onkeydown = move; */
