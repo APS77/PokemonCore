@@ -23,3 +23,32 @@ context.lineWidth = 10
 context.arc(200,160,30,0,Math.PI * 2, false) // arc(ejex, ejey, radio, circulo completo, 2pi, falso = antihorario)
 context.stroke();
 context.closePath();
+
+class Circulo {
+    constructor (posX, posY, radio, color, grosor, texto) {
+        this.posX = posX;
+        this.posY = posY;
+        this.radio = radio;
+        this.color = color;
+        this.grosor = grosor;
+        this.texto = texto;
+    }
+
+    draw(context) {
+        context.beginPath();
+        context.strokeStyle = this.color;
+        context.lineWidth = this.grosor;
+        // Texto
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.font = "20px Arial";
+        context.fillText(this.texto, this.posX, this.posY);
+
+        context.arc(this.posX, this.posY, this.radio, 0, Math.PI*2, false);
+        context.stroke();
+        context.closePath();
+    }
+}
+
+let miCirculo = new Circulo(100, 100, 40, "blue", 10, "Player");
+miCirculo.draw(context);
