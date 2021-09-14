@@ -23,11 +23,11 @@ let keys = [];
 const player = {
     posX: 14,
     posY: 55,
-    ancho: 64,
-    alto: 64,
+    width: 64,
+    height: 64,
     frameX: 0,
     frameY: 0,
-    velocidad: 5,
+    speed: 5,
     moving: false
 }
 
@@ -61,31 +61,31 @@ window.addEventListener("keyup", function (e) {
     }
 })
 
-function movePlayer () {  // W S A D (en ese orden)
+function movePlayer () {  //  A D W S (en ese orden)
     if (keys[0] == 87 || keys[0] == 83 || keys[0] == 65 || keys[0] == 68) player.moving = true;
 
-    if (keys[0] == 65 && keys.length == 1) {
+    if (keys[0] == 65 && keys.length == 1 || keys[0] == 68 && keys[1] == 65 || keys[0] == 65 && keys[1] == 68) {
         player.frameY = 1;
         if (player.posX > -6) {
-            player.posX -= player.velocidad;
+            player.posX -= player.speed;
         }
     }
     if (keys[0] == 68 && keys.length == 1) {
         player.frameY = 2;
-        if (player.posX < canvas.width - player.ancho/2.1) {
-            player.posX += player.velocidad;
+        if (player.posX < canvas.width - player.width/2.1) {
+            player.posX += player.speed;
         }
     }
-    if (keys[keys.length - 1] == 87 || keys[0] == 87) {
+    if (keys[keys.length - 1] == 87 || keys[0] == 87 || keys[0] == 83 && keys[1] == 87 || keys[0] == 87 && keys[1] == 83) {
         player.frameY = 3;
         if (player.posY > 28) {
-            player.posY -= player.velocidad;
+            player.posY -= player.speed;
         }    
     }
-    if (keys[keys.length - 1] == 83 || keys[0] == 83) {
+    if (keys[keys.length - 1] == 83 && keys[0] != 87 || keys[0] == 83 && keys[1] != 87) {
         player.frameY = 0;
-        if (player.posY < canvas.height - player.alto/1.8) {
-            player.posY += player.velocidad;
+        if (player.posY < canvas.height - player.height/1.8) {
+            player.posY += player.speed;
         }
     }
 }
@@ -115,8 +115,8 @@ function animate () {
         creaPasto(600, 55, 6, 3);
         creaPasto(20, 200, 6, 7);
         creaPasto(540, 280, 9, 3);
-        drawSprite(playerSprite, player.ancho * player.frameX, player.alto * player.frameY,
-        player.ancho, player.alto, player.posX, player.posY, player.ancho/1.8, player.alto/1.8);
+        drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY,
+        player.width, player.height, player.posX, player.posY, player.width/1.8, player.height/1.8);
         requestAnimationFrame(animate);
         movePlayer();
         handlePlayerFrame();    
