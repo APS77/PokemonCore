@@ -9,6 +9,7 @@ canvas.width = 760;
 
 const keys = [];
 
+// Player
 const player = {
     posX: -6,
     posY: 30,
@@ -19,6 +20,8 @@ const player = {
     velocidad: 5,
     moving: false
 }
+
+// Imagenes
 const playerSprite = new Image();
 playerSprite.src = "img/player2.png";
 const imagenFondo = new Image();
