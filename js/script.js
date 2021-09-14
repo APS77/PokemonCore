@@ -27,7 +27,7 @@ const player = {
     height: 64,
     frameX: 0,
     frameY: 0,
-    speed: 5,
+    speed: 2.5,
     moving: false
 }
 
@@ -40,21 +40,21 @@ function drawSprite (img, sX, sY, sW, sH, dX, dY, dW, dH) {
 window.addEventListener("keydown", function (e) {
     if (keys.length == 0) {
         keys.push(e.keyCode);
-        console.log(keys);
+        //console.log(keys);
     }
     if (keys[0] != e.keyCode && keys.length < 2) {
         keys.push(e.keyCode);
-        console.log(keys)
+        //console.log(keys)
     }
 })
 window.addEventListener("keyup", function (e) {
     if(keys[1] == e.keyCode) {
         keys.pop();
-        console.log(keys);
+        //console.log(keys);
     }
     if(keys[0] == e.keyCode) {
         keys.shift();
-        console.log(keys);
+        //console.log(keys);
     }
     if (keys.length == 0) {
         player.moving = false;    
@@ -111,21 +111,57 @@ function animate () {
     if (elapsed > fpsInterval) {
         then = now - (elapsed % fpsInterval);
         context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
-        creaPasto(260, 80, 9, 5);
-        creaPasto(600, 55, 6, 3);
         creaPasto(20, 200, 6, 7);
+        creaPasto(260, 80, 9, 5);
         creaPasto(540, 280, 9, 3);
+        creaPasto(600, 55, 6, 3);
         drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY,
         player.width, player.height, player.posX, player.posY, player.width/1.8, player.height/1.8);
         requestAnimationFrame(animate);
         movePlayer();
-        handlePlayerFrame();    
+        handlePlayerFrame();  
+        //rectPlayer(player.posX, player.posY, player.width, player.height);  
+        // SOLUCIONAR CONSUME MUCHA MEMORIA
+        colissionDetect(rectPlayer(player.posX, player.posY), rectPasto1);
+        colissionDetect(rectPlayer(player.posX, player.posY), rectPasto2);
     }
 }
 
-startAnimating(17);
-
+function rectPlayer(posX, posY) {
+    return [posX, posY, posX + 20, posY + 20];
+}
 // Pasto y sus funcionalidades
+
+// Funcion que da info de los pixeles que ocupa cada seccion de pasto (manual):
+// Con esta info se le puede dar funcionalidad despues
+function infoPasto (posX, posY, nHorizontal, nVertical) {
+    //console.log(`Seccion de pasto iniciada en x: ${posX} y: ${posY}`)
+    //console.log("Pos Inicial X: " + posX + " | Pos Final X: " + (posX + nHorizontal * 20))
+    //console.log("Pos Inicial Y: " + posY + " | Pos Final Y: " + (posY + nVertical * 20))
+    return [posX , posY - 10, posX + 5 + (nHorizontal - 1) * 20, posY + nVertical * 20 - 10];
+}
+
+let rectPasto1 = infoPasto(20, 200, 6, 7);
+let rectPasto2 = infoPasto(260, 80, 9, 5);
+let rectPasto3 = infoPasto(540, 280, 9, 3);
+let rectPasto4 = infoPasto(600, 55, 6, 3);
+
+function colissionDetect(rectPlayer, rectPasto) {
+    let p = rectPasto,
+        j = rectPlayer;
+    if (j[0] > p[2] ||
+        j[2] < p[0] ||
+        j[3] < p[1] ||
+        j[3] > p[3]
+    ) {
+        // no colission
+        console.log(p);
+        console.log(j);
+    } else {
+        console.log("Colision detectada");
+    }
+}
+
 // Funcion que crea seccion de pasto como matriz rectangular
 function creaPasto (posX, posY, nHorizontal, nVertical) {
     for (let x = posX; x < posX + nHorizontal * 20; x += 20) {
@@ -135,14 +171,8 @@ function creaPasto (posX, posY, nHorizontal, nVertical) {
     }
 }
 
-// Funcion que da info de los pixeles que ocupa cada seccion de pasto (manual):
-// Con esta info se le puede dar funcionalidad despues
-function infoPasto (posX, posY, nHorizontal, nVertical) {
-    console.log(`Seccion de pasto iniciada en x: ${posX} y: ${posY}`)
-    console.log("Pos Inicial X: " + posX + " | Pos Final X: " + (posX + nHorizontal * 21))
-    console.log("Pos Inicial Y: " + posY + " | Pos Final Y: " + (posY + nVertical * 21))
-}
-// infoPasto(20,200,6,7);
+startAnimating(100);
+
 
 /*function move (e) {
     // var keyCode = (window.event) ? e.which : e.keyCode;
