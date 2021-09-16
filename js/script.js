@@ -1,102 +1,35 @@
+import { overworldMusic } from "./audio.js";
+import { Player } from "./player_class.js";
+
+overworldMusic.play();
+
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
 
-let window_height = window.innerHeight;
-let window_width = window.innerWidth;
+// let window_height = window.innerHeight;
+// let window_width = window.innerWidth;
 
-let fps, fpsInterval, startTime, now, then, elapsed;
-let keys = [];
+let fpsInterval, startTime, now, then, elapsed;
+
 
 canvas.height = 400;
 canvas.width = 760;
 
 // Imagenes
 const playerSprite = new Image(); // 128 x 192 ideal
-playerSprite.src = "img/p6.png";
+playerSprite.src = "img/p2.png";
 const imagenFondo = new Image();
 imagenFondo.src = "img/fondo.png";
 const pasto = new Image();
 pasto.src = "img/pasto.png";
 
-// Player
-const player = {
-    posX: 3,
-    posY: 65,
-    width: 32,
-    height: 48,
-    frameX: 0,
-    frameY: 0,
-    speed: 5,
-    moving: false
-}
-
-// Personaje, Movimiento E Imagen de fondo
-
-function drawSprite (img, sX, sY, sW, sH, dX, dY, dW, dH) {
-    context.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
-}
-
-window.addEventListener("keydown", function (e) {
-    if (keys.length == 0) {
-        keys.push(e.keyCode);
-        //console.log(keys);
-    }
-    if (keys[0] != e.keyCode && keys.length < 2) {
-        keys.push(e.keyCode);
-        //console.log(keys)
-    }
-})
-window.addEventListener("keyup", function (e) {
-    if(keys[1] == e.keyCode) {
-        keys.pop();
-        //console.log(keys);
-    }
-    if(keys[0] == e.keyCode) {
-        keys.shift();
-        //console.log(keys);
-    }
-    if (keys.length == 0) {
-        player.moving = false;    
-    }
-})
-
-function movePlayer () {  //  A D W S (en ese orden)
-    if (keys[0] == 87 || keys[0] == 83 || keys[0] == 65 || keys[0] == 68) player.moving = true;
-
-    if (keys[0] == 65 && keys.length == 1 || keys[0] == 68 && keys[1] == 65 || keys[0] == 65 && keys[1] == 68) {
-        player.frameY = 1;
-        if (player.posX > 0) {
-            player.posX -= player.speed;
-        }
-    }
-    if (keys[0] == 68 && keys.length == 1) {
-        player.frameY = 2;
-        if (player.posX < canvas.width - player.width/1.4) {
-            player.posX += player.speed;
-        }
-    }
-    if (keys[keys.length - 1] == 87    ||
-        keys[0] == 87                  || 
-        keys[0] == 83 && keys[1] == 87 ||
-        keys[0] == 87 && keys[1] == 83
-        ){
-        player.frameY = 3;
-        if (player.posY > 28) {
-            player.posY -= player.speed;
-        }    
-    }
-    if (keys[keys.length - 1] == 83 && keys[0] != 87 || keys[0] == 83 && keys[1] != 87) {
-        player.frameY = 0;
-        if (player.posY < canvas.height - player.height + 10) {
-            player.posY += player.speed;
-        }
-    }
-}
-
-function handlePlayerFrame () {
-    (player.frameX < 3 && player.moving) ? 
-    player.frameX++ : player.frameX = 0;
-}
+// Player Instance
+let juan = new Player (playerSprite);
+juan.setPlayerPosX = 5;
+juan.setPlayerPosY = 65;
+juan.setPlayerWidth = 128;
+juan.setPlayerHeight = 192;
+juan.setPlayerSpeed = 5;
 
 function startAnimating (fps) {
     fpsInterval = 1000/fps;
@@ -116,20 +49,18 @@ function animate () {
         creaPasto(260, 80, 9, 5);
         creaPasto(540, 280, 9, 3);
         creaPasto(600, 60, 6, 3);
-        colissionDetect(rectPlayer(player.posX, player.posY, player.width, player.height), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
-        showColissionHitbox(rectPlayer(player.posX, player.posY, player.width, player.height), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        //colissionDetect(juan.rectPlayer(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        //showColissionHitbox(juan.rectPlayer(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         //showGrassHitbox(rectPasto1, rectPasto2, rectPasto3, rectPasto4);
-        drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY,
-        player.width, player.height, player.posX, player.posY, player.width/1.3, player.height/1.3);
+        juan.drawSprite();
+        juan.showPlayerHitbox();
         requestAnimationFrame(animate);
-        movePlayer();
-        handlePlayerFrame();  
+        juan.movePlayer();
+        juan.handlePlayerFrame();  
     }
 }
 
-function rectPlayer(posX, posY, width, height) {
-    return [posX + 2, posY + 5, width - 12, height - 18]; // hitbox Player
-}
+startAnimating(24);
 
 function infoPasto (posX, posY, nHorizontal, nVertical) {
     return [posX , posY, nHorizontal * 20, nVertical * 20];
@@ -154,12 +85,6 @@ function colissionDetect(rectPlayer, ...rectPasto) {
             // HACER ALGO AQUI
         }
     } )
-}
-
-function showPlayerHitbox (rectPlayer) {
-    // show player's hitbox
-    context.rect(rectPlayer[0], rectPlayer[1], rectPlayer[2], rectPlayer[3])
-    context.stroke(); 
 }
 
 function showGrassHitbox (...rectPasto) {
@@ -206,7 +131,7 @@ function creaPasto (posX, posY, nHorizontal, nVertical) {
     }
 }
 
-startAnimating(24);
+
 
 
 function getKeyCode (e) {
