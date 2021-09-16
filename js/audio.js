@@ -1,3 +1,3 @@
 // musica de fondo
-const audioObj = new Audio("/audio/bg1.mp3");
+export const overworldMusic = new Audio("/audio/bg1.mp3");
 //audioObj.play();
