@@ -1,6 +1,6 @@
 import { overworldMusic } from "./audio.js";
 import { Player } from "./player_class.js";
-
+import { createBattle } from "./battle.js"
 overworldMusic.play();
 
 let canvas = document.getElementById("canvas");
@@ -17,7 +17,7 @@ canvas.width = 760;
 
 // Imagenes
 const playerSprite = new Image(); // 128 x 192 ideal
-playerSprite.src = "img/p2.png";
+playerSprite.src = "img/characters/p2.png";
 const imagenFondo = new Image();
 imagenFondo.src = "img/fondo.png";
 const pasto = new Image();
@@ -45,15 +45,18 @@ function animate () {
     if (elapsed > fpsInterval) {
         then = now - (elapsed % fpsInterval);
         context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
+        //createBattle(context, canvas);
         creaPasto(30, 200, 6, 7);
         creaPasto(260, 80, 9, 5);
         creaPasto(540, 280, 9, 3);
         creaPasto(600, 60, 6, 3);
-        //colissionDetect(juan.rectPlayer(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
-        //showColissionHitbox(juan.rectPlayer(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
-        //showGrassHitbox(rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         juan.drawSprite();
-        juan.showPlayerHitbox();
+        showColissionHitbox(juan.rectPlayer(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        colissionDetect(juan.rectPlayer(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        
+        //showGrassHitbox(rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        
+        //juan.showPlayerHitbox();
         requestAnimationFrame(animate);
         juan.movePlayer();
         juan.handlePlayerFrame();  
@@ -82,7 +85,7 @@ function colissionDetect(rectPlayer, ...rectPasto) {
         } else {
             // colission
             console.log("Colision detectada");
-            // HACER ALGO AQUI
+            createBattle(context, canvas);
         }
     } )
 }
