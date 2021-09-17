@@ -76,8 +76,8 @@ let rectPasto4 = infoPasto(600, 60, 6, 3);
 
 function colissionDetect(rectPlayer, ...rectPasto) {
     rectPasto.forEach (function (pasto) {
-        if (rectPlayer[0] >= pasto[2] + pasto[0]  ||
-            rectPlayer[2] + rectPlayer[0] <= pasto[0]  ||
+        if (rectPlayer[0] >= pasto[2] + pasto[0] - 5 ||
+            rectPlayer[2] + rectPlayer[0] <= pasto[0] + 5 ||
             rectPlayer[3] + rectPlayer[1] <= pasto[1] ||
             rectPlayer[3] + rectPlayer[1] >= pasto[3] + pasto[1] + 10
         ) {
@@ -85,7 +85,7 @@ function colissionDetect(rectPlayer, ...rectPasto) {
         } else {
             // colission
             console.log("Colision detectada");
-            createBattle(context, canvas);
+            //createBattle(context, canvas);
         }
     } )
 }
@@ -105,7 +105,7 @@ function showColissionHitbox (rectPlayer, ...rectPasto) {
     context.stroke(); 
 
     rectPasto.forEach (function (pasto) {
-        if (rectPlayer[0] >= pasto[2] + pasto[0]  - 5||
+        if (rectPlayer[0] >= pasto[2] + pasto[0]  - 5 ||
             rectPlayer[2] + rectPlayer[0] <= pasto[0] + 5 ||
             rectPlayer[3] + rectPlayer[1] <= pasto[1] ||
             rectPlayer[3] + rectPlayer[1] >= pasto[3] + pasto[1] + 10
