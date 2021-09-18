@@ -4,5 +4,6 @@ export class BattleTile {
         this.posY = null;
         this.ratio = null;
         this.tileIMG = tileIMG;
+        this.playerOnTile = false;
     }
 }
