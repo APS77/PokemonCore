@@ -17,7 +17,7 @@ canvas.width = 760;
 
 // Imagenes
 const playerSprite = new Image(); // 128 x 192 ideal
-playerSprite.src = "img/characters/p2.png";
+playerSprite.src = "img/characters/p3.png";
 const imagenFondo = new Image();
 imagenFondo.src = "img/fondo.png";
 const pasto = new Image();
@@ -51,7 +51,7 @@ function animate () {
         creaPasto(540, 280, 9, 3);
         creaPasto(600, 60, 6, 3);
         juan.drawSprite();
-        showColissionHitbox(juan.rectPlayer(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        //showColissionHitbox(juan.rectPlayer(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         colissionDetect(juan.rectPlayer(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         
         //showGrassHitbox(rectPasto1, rectPasto2, rectPasto3, rectPasto4);
