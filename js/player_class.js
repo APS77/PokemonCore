@@ -3,27 +3,16 @@ let keys = [];
 let move = false; // check if it is moving or not
 
 window.addEventListener("keydown", function (e) {
-    if (keys.length == 0) {
-        keys.push(e.keyCode);
-        //console.log(keys);
-    }
-    if (keys[0] != e.keyCode && keys.length < 2) {
-        keys.push(e.keyCode);
-        //console.log(keys)
-    }
+    if (keys.length == 0) keys.push(e.keyCode);
+    
+    if (keys[0] != e.keyCode && keys.length < 2) keys.push(e.keyCode);
 })
 window.addEventListener("keyup", function (e) {
-    if(keys[1] == e.keyCode) {
-        keys.pop();
-        //console.log(keys);
-    }
-    if(keys[0] == e.keyCode) {
-        keys.shift();
-        //console.log(keys);
-    }
-    if (keys.length == 0) {
-        move = false;
-    }
+    if(keys[1] == e.keyCode) keys.pop();
+    
+    if(keys[0] == e.keyCode) keys.shift();
+    
+    if (keys.length == 0) move = false;
 })
 
 export class Player {
