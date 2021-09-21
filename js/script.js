@@ -12,7 +12,6 @@ let context = canvas.getContext("2d");
 
 // let window_height = window.innerHeight;
 // let window_width = window.innerWidth;
-
 let fpsInterval, startTime, now, then, elapsed;
 
 

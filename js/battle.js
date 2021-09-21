@@ -11,7 +11,7 @@ export const pkmn2 = new Image();
 pkmn2.src = "img/pokemons/front/spr_bw_157.png"
 
 export function createBattle (ctx, cvs) {
-    //player.deactivateMove();
+    //player.deactivate();
     // imagenFondo.src = battlePathBG;
     ctx.drawImage(battleBG, 0, 0, cvs.width, cvs.height);
     ctx.drawImage(pkmn1, 120, 130, 250, 250);

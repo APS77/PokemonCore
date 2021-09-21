@@ -42,7 +42,7 @@ export class Player {
         this.speed = null;
         this.moving = false;
         this.spriteIMG = spriteIMG;
-        this.canMove = false;
+        this.canMove = true;
     }
 
     // SETTERS AND GETTERS
