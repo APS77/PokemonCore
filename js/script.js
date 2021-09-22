@@ -139,9 +139,10 @@ function creaPasto (posX, posY, nHorizontal, nVertical) {
 
 
 
-
+/*
 function getKeyCode (e) {
     var keyCode = (window.event) ? e.which : e.keyCode;
     console.log(keyCode);
 }
 //windows.addEventListener("keydown", getKeyCode);
+*/
