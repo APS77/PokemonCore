@@ -1,7 +1,7 @@
 import { overworldMusic } from "./audio.js";
 import { Player } from "./player_class.js";
 import { createBattle } from "./battle.js"
-overworldMusic.play();
+//overworldMusic.play();
 
 const config = {
     debug: false
