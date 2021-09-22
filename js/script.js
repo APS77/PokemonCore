@@ -1,12 +1,13 @@
 import { overworldMusic } from "./audio.js";
 import { Player } from "./player_class.js";
 import { createBattle } from "./battle.js"
+import { BattleTile } from "./BattleTile_class.js";
 //overworldMusic.play();
-
+/*
 const config = {
     debug: false
 };
-
+*/
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
 
@@ -25,6 +26,13 @@ const imagenFondo = new Image();
 imagenFondo.src = "img/fondo.png";
 const pasto = new Image();
 pasto.src = "img/pasto.png";
+
+// BattleTile Instance
+let grass = new BattleTile (pasto);
+grass.setTilePosX = 30;
+grass.setTilePosY = 200;
+grass.setTileRatio = 10;
+console.log(grass.getHitbox());
 
 // Player Instance
 let juan = new Player (playerSprite);
@@ -48,18 +56,18 @@ function animate () {
     if (elapsed > fpsInterval) {
         then = now - (elapsed % fpsInterval);
         context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
-        //createBattle(context, canvas);
-        creaPasto(30, 200, 6, 7);
-        creaPasto(260, 80, 9, 5);
-        creaPasto(540, 280, 9, 3);
-        creaPasto(600, 60, 6, 3);
-        juan.drawSprite();
+        //creaPasto(30, 200, 6, 7);
+        //creaPasto(260, 80, 9, 5);
+        //creaPasto(540, 280, 9, 3);
+        //creaPasto(600, 60, 6, 3);
+        grass.drawTile(context);
+        juan.drawSprite(context);
         //showColissionHitbox(juan.getHitbox(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
-        colissionDetect(juan.getHitbox(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        //colissionDetect(juan.getHitbox(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         
         //showGrassHitbox(rectPasto1, rectPasto2, rectPasto3, rectPasto4);
-        
-        //juan.showPlayerHitbox();
+        juan.showPlayerHitbox(context);
+        grass.showTileHitbox(context);
         requestAnimationFrame(animate);
         juan.movePlayer();
         juan.handlePlayerFrame();

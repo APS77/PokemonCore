@@ -1,4 +1,3 @@
-let context = canvas.getContext("2d");
 let keys = [];
 let move = false; // check if it is moving or not
 
@@ -25,12 +24,12 @@ window.addEventListener("keyup", function (e) {
         move = false;
     }
 })
-
+/*
 window.addEventListener('click', (event) => {
     if(event.target.matches('#btn')) console.log('click');
     else if (event.target.matches('.btn2')) console.log('click 22222');
 })
-
+*/
 export class Player {
     constructor (spriteIMG) {
         this.posX = null;
@@ -79,7 +78,7 @@ export class Player {
     }
 
     // METHODS
-    drawSprite (img, sX, sY, sW, sH, dX, dY, dW, dH) {
+    drawSprite (context) {
         context.drawImage(this.spriteIMG, this.width * this.frameX, this.height * this.frameY,
             this.width, this.height, this.posX, this.posY, this.width/1.3, this.height/1.3);
     }
@@ -174,7 +173,7 @@ export class Player {
         return [this.posX + 2, this.posY + 5, this.width - 12, this.height - 18];
     }
 
-    showPlayerHitbox () {
+    showPlayerHitbox (context) {
         context.beginPath();
         context.rect(this.posX + 2, this.posY + 5, this.width - 12, this.height - 18);
         context.stroke();
