@@ -87,40 +87,26 @@ export class Player {
     movePlayer () {  //  A D W S (en ese orden)
         if ( !this.canMove ) return;
         if (move == false) this.moving = false;
-        
-        if (keys[0] == 87 || keys[0] == 83 || keys[0] == 65 || keys[0] == 68) {
-            this.moving = true;
-            move = true;
-        }
+        this.isMoving(keys);
         this.setLeftMovement(keys);
-
-        if (keys[0] == 68 && keys.length == 1) {
-            this.frameY = 2;
-            if (this.posX < canvas.width - this.width + 10) {
-                this.posX += this.speed;
-            }
-        }
-        if (keys[keys.length - 1] == 87    ||
-            keys[0] == 87                  || 
-            keys[0] == 83 && keys[1] == 87 ||
-            keys[0] == 87 && keys[1] == 83
-            ){
-            this.frameY = 3;
-            if (this.posY > 25) {
-                this.posY -= this.speed;
-            }    
-        }
-        if (keys[keys.length - 1] == 83 && keys[0] != 87 || keys[0] == 83 && keys[1] != 87) {
-            this.frameY = 0;
-            if (this.posY < canvas.height - this.height + 10) {
-                this.posY += this.speed;
-            }
-        }
+        this.setRightMovement(keys);
+        this.setUpMovement(keys);
+        this.setDownMovement(keys);
     }
 
     deactivate() {
         this.canMove = false;
         // hidden al player sprite
+    }
+    
+    isMoving (keys) {
+        if ( !this.isAnyArrowKey(keys) ) return;
+        this.moving = true;
+        move = true;
+    }
+
+    isAnyArrowKey (keys) {
+        return keys[0] == 87 || keys[0] == 83 || keys[0] == 65 || keys[0] == 68;
     }
 
     // Left
@@ -130,7 +116,7 @@ export class Player {
         this.checkLeftBorderCollision();
     }
 
-    isLeftThePriority(keys) { // Check name
+    isLeftThePriority(keys) { 
         return keys[0] == 65 && keys.length == 1 || keys[0] == 68 && keys[1] == 65 || keys[0] == 65 && keys[1] == 68;
     }
 
@@ -138,8 +124,48 @@ export class Player {
         if (this.posX > 0) this.posX -= this.speed;
     }
     //Right
+    setRightMovement (keys) {
+        if ( !this.isRightThePriority(keys) ) return; 
+        this.frameY = 2;
+        this.checkRightBorderCollision();
+    }
 
+    isRightThePriority (keys) {
+        return keys[0] == 68 && keys.length == 1;
+    }
 
+    checkRightBorderCollision () {
+        if (this.posX < canvas.width - this.width + 10) this.posX += this.speed;
+    }
+    //Up
+    setUpMovement (keys) {
+        if ( !this.isUpThePriority(keys) ) return;
+        this.frameY = 3;
+        this.checkUpBorderColission();
+    }
+
+    isUpThePriority (keys) {
+        return keys[keys.length - 1] == 87 || keys[0] == 87 || keys[0] == 83 && keys[1] == 87 || keys[0] == 87 && keys[1] == 83
+    }
+
+    checkUpBorderColission () {
+        if (this.posY > 25) this.posY -= this.speed; 
+    }
+    //Down
+    setDownMovement (keys) {
+        if ( !this.isDownThePriority(keys) ) return;
+        this.frameY = 0;
+        this.checkDownBorderColission();
+    }
+
+    isDownThePriority (keys) {
+        return keys[keys.length - 1] == 83 && keys[0] != 87 || keys[0] == 83 && keys[1] != 87;
+    }
+
+    checkDownBorderColission () {
+        if (this.posY < canvas.height - this.height + 10) this.posY += this.speed;
+    }
+    // ------------------------------------------------------------------------------
     handlePlayerFrame () {
         (this.frameX < 3 && this.moving) ? this.frameX++ : this.frameX = 0;
     }
