@@ -4,7 +4,7 @@ import { createBattle } from "./battle.js"
 overworldMusic.play();
 
 const config = {
-    debug: false
+    debug: true
 };
 
 let canvas = document.getElementById("canvas");
@@ -56,17 +56,22 @@ function animate () {
     player.movePlayer();
     player.handlePlayerFrame();
 }
-
+// *****************************
+// Should be an static class that recieves the allGrass as argument
+// *****************************
 function debug(player) {
     if ( !config.debug ) return;
     showHitboxes(player);
 }
 
 function showHitboxes() {
-    showColissionHitbox(player.getHitboxCoordinates(), allGrass);
+    //showColissionHitbox(player.getHitboxCoordinates(), allGrass);
     showGrassHitbox(allGrass);
     player.showHitbox();
 }
+// *****************************
+// *****************************
+// *****************************
 
 startAnimating(24);
 
@@ -96,6 +101,17 @@ function createAllGrass() {
     createGrass(540, 280, 9, 3);
     createGrass(600, 60, 6, 3)
 }
+
+function showGrassHitbox (grassRects) {
+    let grass;
+    for (let i = 0; i < grassRects.length; i++) {
+        grass = grassRects[i];
+        context.beginPath();
+        context.rect(grass[0], grass[1], grass[2], grass[3]);
+        context.strokeStyle = "black";
+        context.stroke(); 
+    }
+}
 // *****************************
 // *****************************
 // *****************************
@@ -119,16 +135,7 @@ function colissionDetect(hitbox, grassRects) {
     }
 }
 
-function showGrassHitbox (grassRects) {
-    let grass;
-    for (let i = 0; i < grassRects.length; i++) {
-        grass = grassRects[i];
-        context.beginPath();
-        context.rect(grass[0], grass[1], grass[2], grass[3]);
-        context.strokeStyle = "black";
-        context.stroke(); 
-    }
-}
+
 
 function showColissionHitbox (hitbox, grassRects) {
     // show player's hitbox
