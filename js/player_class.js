@@ -144,10 +144,6 @@ export class Player {
         (this.frameX < 3 && this.moving) ? this.frameX++ : this.frameX = 0;
     }
 
-    getHitbox() {
-        return [this.posX + 2, this.posY + 5, this.width - 12, this.height - 18];
-    }
-
     getHitboxCoordinates() {
         return {
             x: this.posX + 2,
