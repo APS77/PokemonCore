@@ -26,7 +26,6 @@ imagenFondo.src = "img/fondo.png";
 const grass = new Image();
 grass.src = "img/pasto.png";
 
-
 // Player Instance
 let player = new Player (playerSprite);
 player.setPlayerPosX = 5;
@@ -46,30 +45,29 @@ function animate () {
     requestAnimationFrame(animate);
     now = Date.now();
     elapsed = now - then;
-    if (elapsed > fpsInterval) {
-        then = now - (elapsed % fpsInterval);
-        context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
-        //createBattle(context, canvas);
-        createGrass(30, 200, 6, 7);
-        createGrass(260, 80, 9, 5);
-        createGrass(540, 280, 9, 3);
-        createGrass(600, 60, 6, 3);
-        player.drawSprite();
-        showColissionHitbox(player.getHitboxCoordinates(), allGrass);
-        colissionDetect(player.getHitboxCoordinates(), allGrass);
-        
-        showGrassHitbox(allGrass);
-        
-        player.showHitbox();
-        requestAnimationFrame(animate);
-        player.movePlayer();
-        player.handlePlayerFrame();
-    }
+    if (elapsed <= fpsInterval) return
+    then = now - (elapsed % fpsInterval);
+    context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
+    //createBattle(context, canvas);
+    createGrass(30, 200, 6, 7);
+    createGrass(260, 80, 9, 5);
+    createGrass(540, 280, 9, 3);
+    createGrass(600, 60, 6, 3);
+    player.drawSprite();
+    showColissionHitbox(player.getHitboxCoordinates(), allGrass);
+    colissionDetect(player.getHitboxCoordinates(), allGrass);
+    
+    showGrassHitbox(allGrass);
+    
+    player.showHitbox();
+    requestAnimationFrame(animate);
+    player.movePlayer();
+    player.handlePlayerFrame();
 }
 
 startAnimating(24);
 
-// THESE SHOULD HAS A CLASS
+// THESE SHOULD HAS A CLASS ***
 function grassRectData (x, y, nHorizontal, nVertical) {
     return [x , y, nHorizontal * 20, nVertical * 20];
 }
