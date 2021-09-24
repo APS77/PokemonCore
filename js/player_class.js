@@ -154,8 +154,9 @@ export class Player {
     }
 
     showHitbox () {
+        let { x, y, width, height } =  this.getHitboxCoordinates();
         context.beginPath();
-        context.rect(this.posX + 2, this.posY + 5, this.width - 12, this.height - 18); // Call 2 times
+        context.rect(x, y, width, height);
         context.stroke();
     }
 }
