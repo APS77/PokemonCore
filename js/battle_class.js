@@ -1,9 +1,9 @@
 export class BattleTile {
-    constructor (tileIMG) {
-        this.posX = null;
-        this.posY = null;
+    constructor (tileImg) {
+        this.x = null;
+        this.y = null;
         this.ratio = null;
-        this.tileIMG = tileIMG;
+        this.tileImg = tileImg;
         this.playerOnTile = false;
     }
 }

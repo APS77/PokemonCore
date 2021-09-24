@@ -32,8 +32,8 @@ window.addEventListener('click', (event) => {
 })
 
 export class Player {
-    constructor (spriteIMG) {
-        this.posX = null;
+    constructor (spriteImg) {
+        this.x = null;
         this.posY = null;
         this.width = null;
         this.height = null;
@@ -41,13 +41,13 @@ export class Player {
         this.frameY = 0;
         this.speed = null;
         this.moving = false;
-        this.spriteIMG = spriteIMG;
+        this.spriteImg = spriteImg;
         this.canMove = true;
     }
 
     // SETTERS AND GETTERS
-    set setPlayerPosX (posX) {
-        this.posX = posX + 3;
+    set setPlayerPosX (x) {
+        this.x = x + 3;
     } // Utilizar multiplos de 5 para que calze con velocidad 5 ( o multiplo de 5 tb)
 
     set setPlayerPosY (posY) {
@@ -67,7 +67,7 @@ export class Player {
     }
 
     get getPlayerPos () {
-        return (`Posicion inicial = x: ${this.posX}, y: ${this.posY}`);
+        return (`Posicion inicial = x: ${this.x}, y: ${this.posY}`);
     }
 
     get getPlayerDimensions () {
@@ -80,11 +80,11 @@ export class Player {
 
     // METHODS
     drawSprite (img, sX, sY, sW, sH, dX, dY, dW, dH) {
-        context.drawImage(this.spriteIMG, this.width * this.frameX, this.height * this.frameY,
-            this.width, this.height, this.posX, this.posY, this.width/1.3, this.height/1.3);
+        context.drawImage(this.spriteImg, this.width * this.frameX, this.height * this.frameY,
+            this.width, this.height, this.x, this.posY, this.width/1.3, this.height/1.3);
     }
 
-    movePlayer () {  //  A D W S (en ese orden)
+    movePlayer () { 
         if ( !this.canMove ) return;
         this.setMoveSentinels();
         this.setAllMovement(keys);
@@ -102,6 +102,7 @@ export class Player {
     }
 
     setAllMovement(keys) {
+        // A D W S (en ese orden)
         this.setMovement(keys, 'left', 1);
         this.setMovement(keys, 'right', 2);
         this.setMovement(keys, 'up', 3);
@@ -127,7 +128,7 @@ export class Player {
     }
 
     leftBorderCollisionCheck() {
-        if (this.posX > 0) this.posX -= this.speed;
+        if (this.x > 0) this.x -= this.speed;
     }
     //---> Right
     rightKeyPriority(keys) {
@@ -135,7 +136,7 @@ export class Player {
     }
 
     rightBorderCollisionCheck() {
-        if (this.posX < canvas.width - this.width + 10) this.posX += this.speed;
+        if (this.x < canvas.width - this.width + 10) this.x += this.speed;
     }
     // ---> Up
     upKeyPriority(keys) {
@@ -165,7 +166,7 @@ export class Player {
 
     getHitboxCoordinates() {
         return {
-            x: this.posX + 2,
+            x: this.x + 2,
             y: this.posY + 5,
             width: this.width - 12,
             height: this.height - 18

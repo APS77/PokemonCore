@@ -68,8 +68,8 @@ function animate () {
 
 startAnimating(24);
 
-function infoPasto (posX, posY, nHorizontal, nVertical) {
-    return [posX , posY, nHorizontal * 20, nVertical * 20];
+function infoPasto (x, posY, nHorizontal, nVertical) {
+    return [x , posY, nHorizontal * 20, nVertical * 20];
 }
 
 let rectPasto1 = infoPasto(30, 200, 6, 7);
@@ -131,12 +131,10 @@ function showColissionHitbox (hitbox, ...rectPasto) {
 }
 
 // Funcion que crea seccion de pasto como matriz rectangular
-function creaPasto (posX, posY, nHorizontal, nVertical) {
-    for (let x = posX; x < posX + nHorizontal * 20; x += 20) {
-        for (let y = posY; y < posY + nVertical * 20; y += 20) {
+function creaPasto (initialX, initialY, nHorizontal, nVertical) {
+    for (let x = initialX; x < initialX + nHorizontal * 20; x += 20)
+        for (let y = initialY; y < initialY + nVertical * 20; y += 20)
             context.drawImage(pasto, x, y, 20, 20);
-        }
-    }
 }
 
 
