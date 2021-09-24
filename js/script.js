@@ -26,6 +26,7 @@ imagenFondo.src = "img/fondo.png";
 const grass = new Image();
 grass.src = "img/pasto.png";
 
+
 // Player Instance
 let player = new Player (playerSprite);
 player.setPlayerPosX = 5;
@@ -54,10 +55,10 @@ function animate () {
         createGrass(540, 280, 9, 3);
         createGrass(600, 60, 6, 3);
         player.drawSprite();
-        //showColissionHitbox(player.getHitboxCoordinates(), grassRect1, grassRect2, grassRect3, grassRect4);
-        colissionDetect(player.getHitboxCoordinates(), grassRect1, grassRect2, grassRect3, grassRect4);
+        showColissionHitbox(player.getHitboxCoordinates(), allGrass);
+        colissionDetect(player.getHitboxCoordinates(), allGrass);
         
-        //showGrassHitbox(grassRect1, grassRect2, grassRect3, grassRect4);
+        showGrassHitbox(allGrass);
         
         player.showHitbox();
         requestAnimationFrame(animate);
@@ -72,14 +73,17 @@ function grassRectData (x, y, nHorizontal, nVertical) {
     return [x , y, nHorizontal * 20, nVertical * 20];
 }
 
-let grassRect1 = grassRectData(30, 200, 6, 7);
+const grassRect1 = grassRectData(30, 200, 6, 7);
 let grassRect2 = grassRectData(260, 80, 9, 5);
 let grassRect3 = grassRectData(540, 280, 9, 3);
 let grassRect4 = grassRectData(600, 60, 6, 3);
+const allGrass = [grassRect1, grassRect2, grassRect3, grassRect4];
 
-function colissionDetect(hitbox, ...grassRects) {
+function colissionDetect(hitbox, grassRects) {
     let { x, y, width, height } = hitbox;
-    grassRects.forEach (function (grass) {
+    let grass;
+    for (let i = 0; i < grassRects.length; i++) {
+        grass = grassRects[i];
         if (x >= grass[2] + grass[0] - 5 ||
             width + x <= grass[0] + 5 ||
             height + y <= grass[1] ||
@@ -91,25 +95,35 @@ function colissionDetect(hitbox, ...grassRects) {
             console.log("Colision detectada");
             //createBattle(context, canvas);
         }
-    } )
+    }
 }
 
-function showGrassHitbox (...grassRects) {
-    grassRects.forEach ( function (grass) {
+function showGrassHitbox (grassRects) {
+    let grass;
+    for (let i = 0; i < grassRects.length; i++) {
+        grass = grassRects[i];
         context.beginPath();
         context.rect(grass[0], grass[1], grass[2], grass[3]);
         context.strokeStyle = "black";
         context.stroke(); 
-    } )
+    }
+    // grassRects.forEach ( function (grass) {
+    //     context.beginPath();
+    //     context.rect(grass[0], grass[1], grass[2], grass[3]);
+    //     context.strokeStyle = "black";
+    //     context.stroke(); 
+    // } )
 }
 
-function showColissionHitbox (hitbox, ...grassRects) {
+function showColissionHitbox (hitbox, grassRects) {
     // show player's hitbox
     let { x, y, width, height } = hitbox;
     context.rect(x, y, width, height);
     context.stroke(); 
 
-    grassRects.forEach (function (grass) {
+    let grass;
+    for (let i = 0; i < grassRects.length; i++) {
+        grass = grassRects[i];
         if (x >= grass[2] + grass[0]  - 5 ||
             width + x <= grass[0] + 5 ||
             height + y <= grass[1] ||
@@ -127,7 +141,26 @@ function showColissionHitbox (hitbox, ...grassRects) {
             context.strokeStyle = "red";
             context.stroke();
         }
-    })
+    }
+    // grassRects.forEach (function (grass) {
+    //     if (x >= grass[2] + grass[0]  - 5 ||
+    //         width + x <= grass[0] + 5 ||
+    //         height + y <= grass[1] ||
+    //         height + y >= grass[3] + grass[1] + 10
+    //     ) {
+    //         // no colission
+    //         context.beginPath();
+    //         context.rect(grass[0], grass[1], grass[2], grass[3]);
+    //         context.strokeStyle = "black";
+    //         context.stroke(); 
+    //     } else {
+    //         // colission
+    //         context.beginPath();
+    //         context.rect(grass[0], grass[1], grass[2], grass[3]);
+    //         context.strokeStyle = "red";
+    //         context.stroke();
+    //     }
+    // })
 }
 
 // Funcion que crea seccion de grass como matriz rectangular
