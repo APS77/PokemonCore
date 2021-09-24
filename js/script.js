@@ -70,7 +70,9 @@ function showHitboxes() {
 
 startAnimating(24);
 
-// THESE SHOULD HAS A CLASS ***
+// *****************************
+//   THESE SHOULD HAS A CLASS
+// *****************************
 function getGrassRectData (x, y, nHorizontal, nVertical) {
     return [x , y, nHorizontal * 20, nVertical * 20];
 }
@@ -94,7 +96,9 @@ function createAllGrass() {
     createGrass(540, 280, 9, 3);
     createGrass(600, 60, 6, 3)
 }
-// ***
+// *****************************
+// *****************************
+// *****************************
 
 function colissionDetect(hitbox, grassRects) {
     let { x, y, width, height } = hitbox;
