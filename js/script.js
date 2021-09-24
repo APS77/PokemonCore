@@ -23,8 +23,8 @@ const playerSprite = new Image(); // 128 x 192 ideal
 playerSprite.src = "img/characters/p3.png";
 const imagenFondo = new Image();
 imagenFondo.src = "img/fondo.png";
-const pasto = new Image();
-pasto.src = "img/pasto.png";
+const grass = new Image();
+grass.src = "img/pasto.png";
 
 // Player Instance
 let juan = new Player (playerSprite);
@@ -49,10 +49,10 @@ function animate () {
         then = now - (elapsed % fpsInterval);
         context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
         //createBattle(context, canvas);
-        creaPasto(30, 200, 6, 7);
-        creaPasto(260, 80, 9, 5);
-        creaPasto(540, 280, 9, 3);
-        creaPasto(600, 60, 6, 3);
+        createGrass(30, 200, 6, 7);
+        createGrass(260, 80, 9, 5);
+        createGrass(540, 280, 9, 3);
+        createGrass(600, 60, 6, 3);
         juan.drawSprite();
         //showColissionHitbox(juan.getHitboxCoordinates(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         colissionDetect(juan.getHitboxCoordinates(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
@@ -79,11 +79,11 @@ let rectPasto4 = infoPasto(600, 60, 6, 3);
 
 function colissionDetect(hitbox, ...rectPasto) {
     let { x, y, width, height } = hitbox;
-    rectPasto.forEach (function (pasto) {
-        if (x >= pasto[2] + pasto[0] - 5 ||
-            width + x <= pasto[0] + 5 ||
-            height + y <= pasto[1] ||
-            height + y >= pasto[3] + pasto[1] + 10
+    rectPasto.forEach (function (grass) {
+        if (x >= grass[2] + grass[0] - 5 ||
+            width + x <= grass[0] + 5 ||
+            height + y <= grass[1] ||
+            height + y >= grass[3] + grass[1] + 10
         ) {
             // no colission
         } else {
@@ -95,9 +95,9 @@ function colissionDetect(hitbox, ...rectPasto) {
 }
 
 function showGrassHitbox (...rectPasto) {
-    rectPasto.forEach ( function (pasto) {
+    rectPasto.forEach ( function (grass) {
         context.beginPath();
-        context.rect(pasto[0], pasto[1], pasto[2], pasto[3]);
+        context.rect(grass[0], grass[1], grass[2], grass[3]);
         context.strokeStyle = "black";
         context.stroke(); 
     } )
@@ -109,32 +109,32 @@ function showColissionHitbox (hitbox, ...rectPasto) {
     context.rect(x, y, width, height);
     context.stroke(); 
 
-    rectPasto.forEach (function (pasto) {
-        if (x >= pasto[2] + pasto[0]  - 5 ||
-            width + x <= pasto[0] + 5 ||
-            height + y <= pasto[1] ||
-            height + y >= pasto[3] + pasto[1] + 10
+    rectPasto.forEach (function (grass) {
+        if (x >= grass[2] + grass[0]  - 5 ||
+            width + x <= grass[0] + 5 ||
+            height + y <= grass[1] ||
+            height + y >= grass[3] + grass[1] + 10
         ) {
             // no colission
             context.beginPath();
-            context.rect(pasto[0], pasto[1], pasto[2], pasto[3]);
+            context.rect(grass[0], grass[1], grass[2], grass[3]);
             context.strokeStyle = "black";
             context.stroke(); 
         } else {
             // colission
             context.beginPath();
-            context.rect(pasto[0], pasto[1], pasto[2], pasto[3]);
+            context.rect(grass[0], grass[1], grass[2], grass[3]);
             context.strokeStyle = "red";
             context.stroke();
         }
     })
 }
 
-// Funcion que crea seccion de pasto como matriz rectangular
-function creaPasto (initialX, initialY, nHorizontal, nVertical) {
+// Funcion que crea seccion de grass como matriz rectangular
+function createGrass (initialX, initialY, nHorizontal, nVertical) {
     for (let x = initialX; x < initialX + nHorizontal * 20; x += 20)
         for (let y = initialY; y < initialY + nVertical * 20; y += 20)
-            context.drawImage(pasto, x, y, 20, 20);
+            context.drawImage(grass, x, y, 20, 20);
 }
 
 
