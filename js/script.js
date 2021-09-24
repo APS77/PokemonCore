@@ -69,6 +69,7 @@ function animate () {
 
 startAnimating(24);
 
+// THESE SHOULD HAS A CLASS
 function grassRectData (x, y, nHorizontal, nVertical) {
     return [x , y, nHorizontal * 20, nVertical * 20];
 }
@@ -78,6 +79,7 @@ let grassRect2 = grassRectData(260, 80, 9, 5);
 let grassRect3 = grassRectData(540, 280, 9, 3);
 let grassRect4 = grassRectData(600, 60, 6, 3);
 const allGrass = [grassRect1, grassRect2, grassRect3, grassRect4];
+// ***
 
 function colissionDetect(hitbox, grassRects) {
     let { x, y, width, height } = hitbox;
@@ -107,12 +109,6 @@ function showGrassHitbox (grassRects) {
         context.strokeStyle = "black";
         context.stroke(); 
     }
-    // grassRects.forEach ( function (grass) {
-    //     context.beginPath();
-    //     context.rect(grass[0], grass[1], grass[2], grass[3]);
-    //     context.strokeStyle = "black";
-    //     context.stroke(); 
-    // } )
 }
 
 function showColissionHitbox (hitbox, grassRects) {
@@ -142,25 +138,6 @@ function showColissionHitbox (hitbox, grassRects) {
             context.stroke();
         }
     }
-    // grassRects.forEach (function (grass) {
-    //     if (x >= grass[2] + grass[0]  - 5 ||
-    //         width + x <= grass[0] + 5 ||
-    //         height + y <= grass[1] ||
-    //         height + y >= grass[3] + grass[1] + 10
-    //     ) {
-    //         // no colission
-    //         context.beginPath();
-    //         context.rect(grass[0], grass[1], grass[2], grass[3]);
-    //         context.strokeStyle = "black";
-    //         context.stroke(); 
-    //     } else {
-    //         // colission
-    //         context.beginPath();
-    //         context.rect(grass[0], grass[1], grass[2], grass[3]);
-    //         context.strokeStyle = "red";
-    //         context.stroke();
-    //     }
-    // })
 }
 
 // Funcion que crea seccion de grass como matriz rectangular
@@ -169,9 +146,6 @@ function createGrass (initialX, initialY, nHorizontal, nVertical) {
         for (let y = initialY; y < initialY + nVertical * 20; y += 20)
             context.drawImage(grass, x, y, 20, 20);
 }
-
-
-
 
 function getKeyCode (e) {
     var keyCode = (window.event) ? e.which : e.keyCode;
