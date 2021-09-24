@@ -33,6 +33,8 @@ player.setWidth = 128;
 player.setHeight = 192;
 player.setSpeed = 5;
 
+startAnimating(24);
+
 function startAnimating (fps) {
     fpsInterval = 1000/fps;
     then = Date.now();
@@ -72,8 +74,6 @@ function showHitboxes() {
 // *****************************
 // *****************************
 // *****************************
-
-startAnimating(24);
 
 // *****************************
 //   THESE SHOULD HAS A CLASS
@@ -116,8 +116,8 @@ function showGrassHitbox (grassRects) {
 // *****************************
 // *****************************
 
-function colissionDetect(hitbox, grassRects) {
-    let { x, y, width, height } = hitbox;
+function colissionDetect(playerHitbox, grassRects) {
+    let { x, y, width, height } = playerHitbox;
     let grass;
     for (let i = 0; i < grassRects.length; i++) {
         grass = grassRects[i];
