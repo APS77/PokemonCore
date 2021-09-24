@@ -20,19 +20,19 @@ canvas.width = 760;
 
 // Imagenes
 const playerSprite = new Image(); // 128 x 192 ideal
-playerSprite.src = "img/characters/p3.png";
+playerSprite.src = "img/characters/p1.png";
 const imagenFondo = new Image();
 imagenFondo.src = "img/fondo.png";
 const grass = new Image();
 grass.src = "img/pasto.png";
 
 // Player Instance
-let juan = new Player (playerSprite);
-juan.setPlayerPosX = 5;
-juan.setPlayerPosY = 65;
-juan.setPlayerWidth = 128;
-juan.setPlayerHeight = 192;
-juan.setPlayerSpeed = 5;
+let player = new Player (playerSprite);
+player.setPlayerPosX = 5;
+player.setPlayerPosY = 65;
+player.setPlayerWidth = 128;
+player.setPlayerHeight = 192;
+player.setPlayerSpeed = 5;
 
 function startAnimating (fps) {
     fpsInterval = 1000/fps;
@@ -53,16 +53,16 @@ function animate () {
         createGrass(260, 80, 9, 5);
         createGrass(540, 280, 9, 3);
         createGrass(600, 60, 6, 3);
-        juan.drawSprite();
-        //showColissionHitbox(juan.getHitboxCoordinates(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
-        colissionDetect(juan.getHitboxCoordinates(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        player.drawSprite();
+        //showColissionHitbox(player.getHitboxCoordinates(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        colissionDetect(player.getHitboxCoordinates(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         
         //showGrassHitbox(rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         
-        juan.showHitbox();
+        player.showHitbox();
         requestAnimationFrame(animate);
-        juan.movePlayer();
-        juan.handlePlayerFrame();
+        player.movePlayer();
+        player.handlePlayerFrame();
     }
 }
 
