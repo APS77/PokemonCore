@@ -68,8 +68,8 @@ function animate () {
 
 startAnimating(24);
 
-function infoPasto (x, posY, nHorizontal, nVertical) {
-    return [x , posY, nHorizontal * 20, nVertical * 20];
+function infoPasto (x, y, nHorizontal, nVertical) {
+    return [x , y, nHorizontal * 20, nVertical * 20];
 }
 
 let rectPasto1 = infoPasto(30, 200, 6, 7);

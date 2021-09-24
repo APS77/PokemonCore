@@ -25,9 +25,9 @@ context.stroke();
 context.closePath();
 
 class Circulo {
-    constructor (posX, posY, radio, color, grosor, texto) {
-        this.posX = posX;
-        this.posY = posY;
+    constructor (x, y, radio, color, grosor, texto) {
+        this.x = x;
+        this.y = y;
         this.radio = radio;
         this.color = color;
         this.grosor = grosor;
@@ -42,9 +42,9 @@ class Circulo {
         context.textAlign = "center";
         context.textBaseline = "middle";
         context.font = "20px Arial";
-        context.fillText(this.texto, this.posX, this.posY);
+        context.fillText(this.texto, this.x, this.y);
 
-        context.arc(this.posX, this.posY, this.radio, 0, Math.PI*2, false);
+        context.arc(this.x, this.y, this.radio, 0, Math.PI*2, false);
         context.stroke();
         context.closePath();
     }

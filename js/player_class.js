@@ -34,7 +34,7 @@ window.addEventListener('click', (event) => {
 export class Player {
     constructor (spriteImg) {
         this.x = null;
-        this.posY = null;
+        this.y = null;
         this.width = null;
         this.height = null;
         this.frameX = 0;
@@ -50,8 +50,8 @@ export class Player {
         this.x = x + 3;
     } // Utilizar multiplos de 5 para que calze con velocidad 5 ( o multiplo de 5 tb)
 
-    set setPlayerPosY (posY) {
-        this.posY = posY;
+    set setPlayerPosY (y) {
+        this.y = y;
     }
 
     set setPlayerWidth (width) {
@@ -67,7 +67,7 @@ export class Player {
     }
 
     get getPlayerPos () {
-        return (`Posicion inicial = x: ${this.x}, y: ${this.posY}`);
+        return (`Posicion inicial = x: ${this.x}, y: ${this.y}`);
     }
 
     get getPlayerDimensions () {
@@ -81,7 +81,7 @@ export class Player {
     // METHODS
     drawSprite (img, sX, sY, sW, sH, dX, dY, dW, dH) {
         context.drawImage(this.spriteImg, this.width * this.frameX, this.height * this.frameY,
-            this.width, this.height, this.x, this.posY, this.width/1.3, this.height/1.3);
+            this.width, this.height, this.x, this.y, this.width/1.3, this.height/1.3);
     }
 
     movePlayer () { 
@@ -144,7 +144,7 @@ export class Player {
     }
 
     upBorderCollisionCheck() {
-        if (this.posY > 25) this.posY -= this.speed;
+        if (this.y > 25) this.y -= this.speed;
     }
     // ---> Down
     downKeyPriority(keys) {
@@ -152,7 +152,7 @@ export class Player {
     }
 
     downBorderCollisionCheck() {
-        if (this.posY < canvas.height - this.height + 10) this.posY += this.speed;
+        if (this.y < canvas.height - this.height + 10) this.y += this.speed;
     }
     // End movement
     deactivate() {
@@ -167,7 +167,7 @@ export class Player {
     getHitboxCoordinates() {
         return {
             x: this.x + 2,
-            y: this.posY + 5,
+            y: this.y + 5,
             width: this.width - 12,
             height: this.height - 18
         }
