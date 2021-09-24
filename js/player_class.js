@@ -86,15 +86,21 @@ export class Player {
 
     movePlayer () {  //  A D W S (en ese orden)
         if ( !this.canMove ) return;
-        if (move == false) this.moving = false;
-        
-        if (keys[0] == 87 || keys[0] == 83 || keys[0] == 65 || keys[0] == 68) {
-            this.moving = true;
-            move = true;
-        }
+        this.setMoveSentinels();
         this.setAllMovement(keys);
     }
     // Movement
+    setMoveSentinels() {
+        if (move == false) this.moving = false;
+        if ( !this.isSomeMovementKeyPress() ) return;
+        this.moving = true;
+        move = true;
+    }
+
+    isSomeMovementKeyPress() {
+        return keys[0] == 87 || keys[0] == 83 || keys[0] == 65 || keys[0] == 68;
+    }
+
     setAllMovement(keys) {
         this.setMovement(keys, 'left', 1);
         this.setMovement(keys, 'right', 2);
