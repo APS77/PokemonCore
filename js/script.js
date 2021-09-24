@@ -59,7 +59,7 @@ function animate () {
         
         //showGrassHitbox(rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         
-        //juan.showPlayerHitbox();
+        juan.showHitbox();
         requestAnimationFrame(animate);
         juan.movePlayer();
         juan.handlePlayerFrame();
