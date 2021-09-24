@@ -14,7 +14,6 @@ let context = canvas.getContext("2d");
 // let window_width = window.innerWidth;
 let fpsInterval, startTime, now, then, elapsed;
 
-
 canvas.height = 400;
 canvas.width = 760;
 
@@ -60,6 +59,10 @@ function animate () {
 
 function debug(player) {
     if ( !config.debug ) return;
+    showHitboxes(player);
+}
+
+function showHitboxes() {
     showColissionHitbox(player.getHitboxCoordinates(), allGrass);
     showGrassHitbox(allGrass);
     player.showHitbox();
