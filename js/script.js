@@ -125,10 +125,8 @@ function isThePlayerCollidingWithTheGrass(x, y, width, height, grass) {
 // ********************************************
 function colissionDetect(playerHitbox, grassRects) {
     let { x, y, width, height } = playerHitbox;
-    let grass;
     for (let i = 0; i < grassRects.length; i++) {
-        grass = grassRects[i];
-        if ( !isThePlayerCollidingWithTheGrass(x, y, width, height, grass) ) return;
+        if ( !isThePlayerCollidingWithTheGrass(x, y, width, height, grassRects[i]) ) return;
         console.log("Colision detectada");
         //createBattle(context, canvas);
     }
@@ -142,13 +140,10 @@ function showColissionHitbox (hitbox, grassRects) {
     // show player's hitbox
     let { x, y, width, height } = hitbox;
     context.rect(x, y, width, height);
-    context.stroke(); 
-
-    let grass;
+    context.stroke();
     for (let i = 0; i < grassRects.length; i++) {
-        grass = grassRects[i];
-        if ( isThePlayerCollidingWithTheGrass(x, y, width, height, grass) ) showGrassHitbox(grass, 'red');
-        else showGrassHitbox(grass, 'black');
+        if ( isThePlayerCollidingWithTheGrass(x, y, width, height, grassRects[i]) ) showGrassHitbox(grassRects[i], 'red');
+        else showGrassHitbox(grassRects[i], 'black');
     }
 }
 
