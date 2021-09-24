@@ -137,17 +137,12 @@ function colissionDetect(playerHitbox, grassRects) {
 // ********************************************
 
 function showColissionHitbox (hitbox, grassRects) {
-    // show player's hitbox
     let { x, y, width, height } = hitbox;
-    context.rect(x, y, width, height);
-    context.stroke();
     for (let i = 0; i < grassRects.length; i++) {
         if ( isThePlayerCollidingWithTheGrass(x, y, width, height, grassRects[i]) ) showGrassHitbox(grassRects[i], 'red');
         else showGrassHitbox(grassRects[i], 'black');
     }
 }
-
-
 
 function getKeyCode (e) {
     var keyCode = (window.event) ? e.which : e.keyCode;
