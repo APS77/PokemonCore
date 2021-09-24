@@ -49,10 +49,7 @@ function animate () {
     then = now - (elapsed % fpsInterval);
     context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
     //createBattle(context, canvas);
-    createGrass(30, 200, 6, 7);
-    createGrass(260, 80, 9, 5);
-    createGrass(540, 280, 9, 3);
-    createGrass(600, 60, 6, 3);
+    createAllGrass();
     player.drawSprite();
     debug(player);
     colissionDetect(player.getHitboxCoordinates(), allGrass);
@@ -71,15 +68,29 @@ function debug(player) {
 startAnimating(24);
 
 // THESE SHOULD HAS A CLASS ***
-function grassRectData (x, y, nHorizontal, nVertical) {
+function getGrassRectData (x, y, nHorizontal, nVertical) {
     return [x , y, nHorizontal * 20, nVertical * 20];
 }
 
-const grassRect1 = grassRectData(30, 200, 6, 7);
-let grassRect2 = grassRectData(260, 80, 9, 5);
-let grassRect3 = grassRectData(540, 280, 9, 3);
-let grassRect4 = grassRectData(600, 60, 6, 3);
+const grassRect1 = getGrassRectData(30, 200, 6, 7);
+let grassRect2 = getGrassRectData(260, 80, 9, 5);
+let grassRect3 = getGrassRectData(540, 280, 9, 3);
+let grassRect4 = getGrassRectData(600, 60, 6, 3);
 const allGrass = [grassRect1, grassRect2, grassRect3, grassRect4];
+
+// Funcion que crea seccion de grass como matriz rectangular
+function createGrass (initialX, initialY, nHorizontal, nVertical) {
+    for (let x = initialX; x < initialX + nHorizontal * 20; x += 20)
+        for (let y = initialY; y < initialY + nVertical * 20; y += 20)
+            context.drawImage(grass, x, y, 20, 20);
+}
+
+function createAllGrass() {
+    createGrass(30, 200, 6, 7);
+    createGrass(260, 80, 9, 5);
+    createGrass(540, 280, 9, 3);
+    createGrass(600, 60, 6, 3)
+}
 // ***
 
 function colissionDetect(hitbox, grassRects) {
@@ -141,12 +152,7 @@ function showColissionHitbox (hitbox, grassRects) {
     }
 }
 
-// Funcion que crea seccion de grass como matriz rectangular
-function createGrass (initialX, initialY, nHorizontal, nVertical) {
-    for (let x = initialX; x < initialX + nHorizontal * 20; x += 20)
-        for (let y = initialY; y < initialY + nVertical * 20; y += 20)
-            context.drawImage(grass, x, y, 20, 20);
-}
+
 
 function getKeyCode (e) {
     var keyCode = (window.event) ? e.which : e.keyCode;
