@@ -58,26 +58,26 @@ function animate () {
     player.movePlayer();
     player.handlePlayerFrame();
 }
-// *****************************
-// Should be an static class that recieves the allGrass as argument
-// *****************************
+// ********************************************
+//   THESE SHOULD HAS A CLASS IN OTHER FILE
+// ********************************************
 function debug(player) {
     if ( !config.debug ) return;
     showHitboxes(player);
 }
 
 function showHitboxes() {
-    //showColissionHitbox(player.getHitboxCoordinates(), allGrass);
-    showGrassHitbox(allGrass);
+    // Should be an static class that recieves the allGrass as argument
+    showColissionHitbox(player.getHitboxCoordinates(), allGrass);
     player.showHitbox();
 }
-// *****************************
-// *****************************
-// *****************************
+// ********************************************
+// ********************************************
+// ********************************************
 
-// *****************************
-//   THESE SHOULD HAS A CLASS
-// *****************************
+// ********************************************
+//   THESE SHOULD HAS A CLASS IN OTHER FILE
+// ********************************************
 function getGrassRectData (x, y, nHorizontal, nVertical) {
     return [x , y, nHorizontal * 20, nVertical * 20];
 }
@@ -102,19 +102,19 @@ function createAllGrass() {
     createGrass(600, 60, 6, 3)
 }
 
-function showGrassHitbox (grassRects) {
-    let grass;
-    for (let i = 0; i < grassRects.length; i++) {
-        grass = grassRects[i];
-        context.beginPath();
-        context.rect(grass[0], grass[1], grass[2], grass[3]);
-        context.strokeStyle = "black";
-        context.stroke(); 
-    }
+function showAllGrassHitbox (grassRects, color) {
+    for (let i = 0; i < grassRects.length; i++) showGrassHitbox(grassRects[i], color);
 }
-// *****************************
-// *****************************
-// *****************************
+
+function showGrassHitbox(grass, color) {
+    context.beginPath();
+    context.rect(grass[0], grass[1], grass[2], grass[3]);
+    context.strokeStyle = color;
+    context.stroke(); 
+}
+// ********************************************
+// ********************************************
+// ********************************************
 
 function colissionDetect(playerHitbox, grassRects) {
     let { x, y, width, height } = playerHitbox;
@@ -152,16 +152,10 @@ function showColissionHitbox (hitbox, grassRects) {
             height + y >= grass[3] + grass[1] + 10
         ) {
             // no colission
-            context.beginPath();
-            context.rect(grass[0], grass[1], grass[2], grass[3]);
-            context.strokeStyle = "black";
-            context.stroke(); 
+            showGrassHitbox(grass, 'black');
         } else {
             // colission
-            context.beginPath();
-            context.rect(grass[0], grass[1], grass[2], grass[3]);
-            context.strokeStyle = "red";
-            context.stroke();
+            showGrassHitbox(grass, 'red');
         }
     }
 }
