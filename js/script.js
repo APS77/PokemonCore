@@ -54,15 +54,18 @@ function animate () {
     createGrass(540, 280, 9, 3);
     createGrass(600, 60, 6, 3);
     player.drawSprite();
-    showColissionHitbox(player.getHitboxCoordinates(), allGrass);
+    debug(player);
     colissionDetect(player.getHitboxCoordinates(), allGrass);
-    
-    showGrassHitbox(allGrass);
-    
-    player.showHitbox();
     requestAnimationFrame(animate);
     player.movePlayer();
     player.handlePlayerFrame();
+}
+
+function debug(player) {
+    if ( !config.debug ) return;
+    showColissionHitbox(player.getHitboxCoordinates(), allGrass);
+    showGrassHitbox(allGrass);
+    player.showHitbox();
 }
 
 startAnimating(24);
