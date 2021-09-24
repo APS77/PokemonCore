@@ -54,10 +54,10 @@ function animate () {
         createGrass(540, 280, 9, 3);
         createGrass(600, 60, 6, 3);
         player.drawSprite();
-        //showColissionHitbox(player.getHitboxCoordinates(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
-        colissionDetect(player.getHitboxCoordinates(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        //showColissionHitbox(player.getHitboxCoordinates(), grassRect1, grassRect2, grassRect3, grassRect4);
+        colissionDetect(player.getHitboxCoordinates(), grassRect1, grassRect2, grassRect3, grassRect4);
         
-        //showGrassHitbox(rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        //showGrassHitbox(grassRect1, grassRect2, grassRect3, grassRect4);
         
         player.showHitbox();
         requestAnimationFrame(animate);
@@ -68,18 +68,18 @@ function animate () {
 
 startAnimating(24);
 
-function infoPasto (x, y, nHorizontal, nVertical) {
+function grassRectData (x, y, nHorizontal, nVertical) {
     return [x , y, nHorizontal * 20, nVertical * 20];
 }
 
-let rectPasto1 = infoPasto(30, 200, 6, 7);
-let rectPasto2 = infoPasto(260, 80, 9, 5);
-let rectPasto3 = infoPasto(540, 280, 9, 3);
-let rectPasto4 = infoPasto(600, 60, 6, 3);
+let grassRect1 = grassRectData(30, 200, 6, 7);
+let grassRect2 = grassRectData(260, 80, 9, 5);
+let grassRect3 = grassRectData(540, 280, 9, 3);
+let grassRect4 = grassRectData(600, 60, 6, 3);
 
-function colissionDetect(hitbox, ...rectPasto) {
+function colissionDetect(hitbox, ...grassRects) {
     let { x, y, width, height } = hitbox;
-    rectPasto.forEach (function (grass) {
+    grassRects.forEach (function (grass) {
         if (x >= grass[2] + grass[0] - 5 ||
             width + x <= grass[0] + 5 ||
             height + y <= grass[1] ||
@@ -94,8 +94,8 @@ function colissionDetect(hitbox, ...rectPasto) {
     } )
 }
 
-function showGrassHitbox (...rectPasto) {
-    rectPasto.forEach ( function (grass) {
+function showGrassHitbox (...grassRects) {
+    grassRects.forEach ( function (grass) {
         context.beginPath();
         context.rect(grass[0], grass[1], grass[2], grass[3]);
         context.strokeStyle = "black";
@@ -103,13 +103,13 @@ function showGrassHitbox (...rectPasto) {
     } )
 }
 
-function showColissionHitbox (hitbox, ...rectPasto) {
+function showColissionHitbox (hitbox, ...grassRects) {
     // show player's hitbox
     let { x, y, width, height } = hitbox;
     context.rect(x, y, width, height);
     context.stroke(); 
 
-    rectPasto.forEach (function (grass) {
+    grassRects.forEach (function (grass) {
         if (x >= grass[2] + grass[0]  - 5 ||
             width + x <= grass[0] + 5 ||
             height + y <= grass[1] ||
