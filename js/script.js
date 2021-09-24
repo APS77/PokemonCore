@@ -53,7 +53,7 @@ function animate () {
     createAllGrass();
     player.drawSprite();
     debug(player);
-    colissionDetect(player.getHitboxCoordinates(), allGrass);
+    detecCollisionBetweenPlayerAndTheGrass(player.getHitboxCoordinates(), allGrass);
     requestAnimationFrame(animate);
     player.movePlayer();
     player.handlePlayerFrame();
@@ -90,6 +90,8 @@ const allGrass = [grassRect1, grassRect2, grassRect3, grassRect4];
 
 // Funcion que crea seccion de grass como matriz rectangular
 function createGrass (initialX, initialY, nHorizontal, nVertical) {
+    // *** Define a const that explains qhat is the 20 ***
+    // *** Give more explanatory names to nHorizontal and nVertical ***
     for (let x = initialX; x < initialX + nHorizontal * 20; x += 20)
         for (let y = initialY; y < initialY + nVertical * 20; y += 20)
             context.drawImage(grass, x, y, 20, 20);
@@ -102,8 +104,30 @@ function createAllGrass() {
     createGrass(600, 60, 6, 3)
 }
 
-function showAllGrassHitbox (grassRects, color) {
-    for (let i = 0; i < grassRects.length; i++) showGrassHitbox(grassRects[i], color);
+function detecCollisionBetweenPlayerAndTheGrass(playerHitbox, grassRects) {
+    for (let i = 0; i < grassRects.length; i++) {
+        if ( !isThePlayerCollidingWithTheGrass(playerHitbox, grassRects[i]) ) return;
+        console.log("Colision detectada");
+        //createBattle(context, canvas);
+    }
+}
+
+function showColissionHitbox (playerHitbox, grassRects) {
+    for (let i = 0; i < grassRects.length; i++) showColoredGrassHitbox(playerHitbox, grassRects[i]);
+}
+
+function showColoredGrassHitbox(playerHitbox, grass) {
+    if ( isThePlayerCollidingWithTheGrass(playerHitbox, grass) ) showGrassHitbox(grass, 'red');
+    else showGrassHitbox(grass, 'black');
+}
+
+function isThePlayerCollidingWithTheGrass(playerHitbox, grass) {
+    return !(
+        playerHitbox.x >= grass[2] + grass[0] - 5
+        || playerHitbox.width + playerHitbox.x <= grass[0] + 5
+        || playerHitbox.height + playerHitbox.y <= grass[1]
+        || playerHitbox.height + playerHitbox.y >= grass[3] + grass[1] + 10
+    );
 }
 
 function showGrassHitbox(grass, color) {
@@ -112,37 +136,9 @@ function showGrassHitbox(grass, color) {
     context.strokeStyle = color;
     context.stroke(); 
 }
-
-function isThePlayerCollidingWithTheGrass(x, y, width, height, grass) {
-    return !(x >= grass[2] + grass[0] - 5 || width + x <= grass[0] + 5 || height + y <= grass[1] || height + y >= grass[3] + grass[1] + 10);
-}
 // ********************************************
 // ********************************************
 // ********************************************
-
-// ********************************************
-// THESE SHOULD BE A STATIC CLASS IN OTHER FILE
-// ********************************************
-function colissionDetect(playerHitbox, grassRects) {
-    let { x, y, width, height } = playerHitbox;
-    for (let i = 0; i < grassRects.length; i++) {
-        if ( !isThePlayerCollidingWithTheGrass(x, y, width, height, grassRects[i]) ) return;
-        console.log("Colision detectada");
-        //createBattle(context, canvas);
-    }
-}
-
-// ********************************************
-// ********************************************
-// ********************************************
-
-function showColissionHitbox (hitbox, grassRects) {
-    let { x, y, width, height } = hitbox;
-    for (let i = 0; i < grassRects.length; i++) {
-        if ( isThePlayerCollidingWithTheGrass(x, y, width, height, grassRects[i]) ) showGrassHitbox(grassRects[i], 'red');
-        else showGrassHitbox(grassRects[i], 'black');
-    }
-}
 
 function getKeyCode (e) {
     var keyCode = (window.event) ? e.which : e.keyCode;
