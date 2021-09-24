@@ -148,16 +148,18 @@ export class Player {
         return [this.posX + 2, this.posY + 5, this.width - 12, this.height - 18];
     }
 
-    showHitbox () {
-        context.beginPath();
-        context.rect(this.posX + 2, this.posY + 5, this.width - 12, this.height - 18);
-        context.stroke();
-        this.getHitboxRect();
+    getHitboxCoordinates() {
+        return {
+            x: this.posX + 2,
+            y: this.posY + 5,
+            width: this.width - 12,
+            height: this.height - 18
+        }
     }
 
-    getHitboxRect() {
-        const coordinates = this.getHitbox();
-        console.log(coordinates);
-        //context.rect(this.posX + 2, this.posY + 5, this.width - 12, this.height - 18);
+    showHitbox () {
+        context.beginPath();
+        context.rect(this.posX + 2, this.posY + 5, this.width - 12, this.height - 18); // Call 2 times
+        context.stroke();
     }
 }

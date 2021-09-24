@@ -54,8 +54,8 @@ function animate () {
         creaPasto(540, 280, 9, 3);
         creaPasto(600, 60, 6, 3);
         juan.drawSprite();
-        //showColissionHitbox(juan.getHitbox(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
-        colissionDetect(juan.getHitbox(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        //showColissionHitbox(juan.getHitboxCoordinates(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        colissionDetect(juan.getHitboxCoordinates(), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         
         //showGrassHitbox(rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         
@@ -77,12 +77,13 @@ let rectPasto2 = infoPasto(260, 80, 9, 5);
 let rectPasto3 = infoPasto(540, 280, 9, 3);
 let rectPasto4 = infoPasto(600, 60, 6, 3);
 
-function colissionDetect(getHitbox, ...rectPasto) {
+function colissionDetect(hitbox, ...rectPasto) {
+    let { x, y, width, height } = hitbox;
     rectPasto.forEach (function (pasto) {
-        if (getHitbox[0] >= pasto[2] + pasto[0] - 5 ||
-            getHitbox[2] + getHitbox[0] <= pasto[0] + 5 ||
-            getHitbox[3] + getHitbox[1] <= pasto[1] ||
-            getHitbox[3] + getHitbox[1] >= pasto[3] + pasto[1] + 10
+        if (x >= pasto[2] + pasto[0] - 5 ||
+            width + x <= pasto[0] + 5 ||
+            height + y <= pasto[1] ||
+            height + y >= pasto[3] + pasto[1] + 10
         ) {
             // no colission
         } else {
@@ -102,16 +103,17 @@ function showGrassHitbox (...rectPasto) {
     } )
 }
 
-function showColissionHitbox (getHitbox, ...rectPasto) {
+function showColissionHitbox (hitbox, ...rectPasto) {
     // show player's hitbox
-    context.rect(getHitbox[0], getHitbox[1], getHitbox[2], getHitbox[3])
+    let { x, y, width, height } = hitbox;
+    context.rect(x, y, width, height);
     context.stroke(); 
 
     rectPasto.forEach (function (pasto) {
-        if (getHitbox[0] >= pasto[2] + pasto[0]  - 5 ||
-            getHitbox[2] + getHitbox[0] <= pasto[0] + 5 ||
-            getHitbox[3] + getHitbox[1] <= pasto[1] ||
-            getHitbox[3] + getHitbox[1] >= pasto[3] + pasto[1] + 10
+        if (x >= pasto[2] + pasto[0]  - 5 ||
+            width + x <= pasto[0] + 5 ||
+            height + y <= pasto[1] ||
+            height + y >= pasto[3] + pasto[1] + 10
         ) {
             // no colission
             context.beginPath();
