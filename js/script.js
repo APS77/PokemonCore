@@ -27,11 +27,11 @@ grass.src = "img/pasto.png";
 
 // Player Instance
 let player = new Player (playerSprite);
-player.setPlayerPosX = 5;
-player.setPlayerPosY = 65;
-player.setPlayerWidth = 128;
-player.setPlayerHeight = 192;
-player.setPlayerSpeed = 5;
+player.setX = 5;
+player.setY = 65;
+player.setWidth = 128;
+player.setHeight = 192;
+player.setSpeed = 5;
 
 function startAnimating (fps) {
     fpsInterval = 1000/fps;

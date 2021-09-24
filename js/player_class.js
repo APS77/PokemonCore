@@ -45,11 +45,11 @@ export class Player {
         this.canMove = true;
     }
     // Setters
-    set setPlayerPosX (x) { this.x = x + 3; } // Utilizar multiplos de 5 para que calze con velocidad 5 ( o multiplo de 5 tb)
-    set setPlayerPosY (y) { this.y = y; }
-    set setPlayerWidth (width) { this.width = width / 4;}
-    set setPlayerHeight (height) { this.height = height / 4; }
-    set setPlayerSpeed (speed) { this.speed = speed; }
+    set setX (x) { this.x = x + 3; } // Utilizar multiplos de 5 para que calze con velocidad 5 ( o multiplo de 5 tb)
+    set setY (y) { this.y = y; }
+    set setWidth (width) { this.width = width / 4;}
+    set setHeight (height) { this.height = height / 4; }
+    set setSpeed (speed) { this.speed = speed; }
     // Getters
     get getPlayerPos () { return (`Posicion inicial = x: ${this.x}, y: ${this.y}`); }
     get getPlayerDimensions () { return (`Player sprite = Width: ${this.width}, Height: ${this.height}`); }
