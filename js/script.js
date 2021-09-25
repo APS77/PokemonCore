@@ -17,7 +17,7 @@ let fpsInterval, startTime, now, then, elapsed;
 canvas.height = 400;
 canvas.width = 760;
 
-// Imagenes
+// Images
 const playerSprite = new Image(); // 128 x 192 ideal
 playerSprite.src = "img/characters/p1.png";
 const imagenFondo = new Image();
