@@ -127,7 +127,7 @@ export class Player {
     // End movement
     deactivate() {
         this.canMove = false;
-        // hidden al player sprite
+        // hidden al player sprite or stop drawing, i think you were right the other day
     }
     // Update
     update() {
