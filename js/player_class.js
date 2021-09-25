@@ -175,6 +175,7 @@ export class Player {
 
     showPlayerHitbox (context) {
         context.beginPath();
+        context.strokeStyle = "black"; //always black
         context.rect(this.posX + 2, this.posY + 5, this.width - 12, this.height - 18);
         context.stroke();
     }
