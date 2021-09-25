@@ -4,9 +4,10 @@ export class BattleTile {
         this.posY = null;
         this.ratio = null;
         this.tileIMG = tileIMG;
-        this.playerOnTile = false;
         this.width = 20;
         this.height = 20;
+        this.battleIndicator = [];
+        this.playerOnTile = false;
     }
 
     set setTilePosX (posX) {
@@ -33,6 +34,32 @@ export class BattleTile {
         context.beginPath();
         context.rect(this.posX, this.posY, this.width, this.height);
         context.stroke();
+    }
+
+    getRandom() {
+        return Math.random() * 100;
+      }
+
+    randomBattleCalculator () {
+        let randomNumber = this.getRandom();
+        this.battleIndicator = [];
+        if (this.ratio >= randomNumber) {
+            this.battleIndicator.push(this.ratio);
+            this.battleIndicator.push(randomNumber);
+            console.log(this.battleIndicator);
+        } 
+    }
+
+    isbattle () {
+        if ( !this.playerOnTile ) return;
+        this.randomBattleCalculator ();
+    }
+
+    battleLauncher () {
+        this.isbattle();
+        if ( this.battleIndicator[0] >= this.battleIndicator[1] ) {
+            console.log("BATALLA INICIADA");
+        }
     }
 
     /*
