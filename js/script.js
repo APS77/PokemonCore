@@ -55,8 +55,7 @@ function animate () {
     debug(player);
     detecCollisionBetweenPlayerAndTheGrass(player.getHitboxCoordinates(), allGrass);
     requestAnimationFrame(animate);
-    player.movePlayer();
-    player.handlePlayerFrame();
+    player.update();
 }
 // ********************************************
 // THESE SHOULD BE A STATIC CLASS IN OTHER FILE
