@@ -11,7 +11,8 @@ window.addEventListener("keydown", function (e) {
         keys.push(e.keyCode);
         //console.log(keys)
     }
-})
+});
+
 window.addEventListener("keyup", function (e) {
     if(keys[1] == e.keyCode) {
         keys.pop();
@@ -24,7 +25,7 @@ window.addEventListener("keyup", function (e) {
     if (keys.length == 0) {
         move = false;
     }
-})
+});
 
 window.addEventListener('click', (event) => {
     if(event.target.matches('#btn')) console.log('click');
