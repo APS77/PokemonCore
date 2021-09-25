@@ -121,7 +121,7 @@ function animate () {
         creaPasto(260, 80, 9, 5);
         creaPasto(540, 280, 9, 3);
         creaPasto(600, 60, 6, 3);
-        colissionDetect(getHitbox(player.posX, player.posY, player.width, player.height), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
+        collisionDetect(getHitbox(player.posX, player.posY, player.width, player.height), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         showColissionHitbox(getHitbox(player.posX, player.posY, player.width, player.height), rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         //showGrassHitbox(rectPasto1, rectPasto2, rectPasto3, rectPasto4);
         drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY,
@@ -145,7 +145,7 @@ let rectPasto2 = infoPasto(260, 80, 9, 5);
 let rectPasto3 = infoPasto(540, 280, 9, 3);
 let rectPasto4 = infoPasto(600, 60, 6, 3);
 
-function colissionDetect(getHitbox, ...rectPasto) {
+function collisionDetect(getHitbox, ...rectPasto) {
     rectPasto.forEach (function (pasto) {
         if (getHitbox[0] >= pasto[2] + pasto[0]  ||
             getHitbox[2] + getHitbox[0] <= pasto[0]  ||
