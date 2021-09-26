@@ -11,9 +11,6 @@ const config = {
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
 
-
-// let window_height = window.innerHeight;
-// let window_width = window.innerWidth;
 let fpsInterval, startTime, now, then, elapsed;
 
 
@@ -40,7 +37,6 @@ let juan = new Player (playerSprite);
 juan.setPosition(25, 65);
 //juan.setPlayerPosX = 5;
 //juan.setPlayerPosY = 65;
-juan.setPlayerSpeed = 5;
 
 function animate () {
     requestAnimationFrame(animate);
