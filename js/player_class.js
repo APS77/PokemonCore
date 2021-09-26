@@ -34,8 +34,8 @@ export class Player {
     constructor (spriteIMG) {
         this.posX = null;
         this.posY = null;
-        this.width = null;
-        this.height = null;
+        this.width = 32;
+        this.height = 48;
         this.frameX = 0;
         this.frameY = 0;
         this.speed = null;
@@ -78,6 +78,11 @@ export class Player {
     }
 
     // METHODS
+    setPosition (x, y) {
+        this.setPlayerPosX = x;
+        this.setPlayerPosY = y;
+    }
+
     drawSprite (context) { // Pool this Object Method
         let spriteImage = this.spriteIMG,
             sx = this.width * this.frameX,
