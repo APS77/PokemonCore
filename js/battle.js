@@ -1,11 +1,9 @@
-//export const battleBG = new Image();
-//battleBG.src = "img/battle/battle3.png";
-const imagenFondo = new Image();
-let battlePathBG = "img/battle/battle3.png";
-export const pkmn1 = new Image();
+const battleBG = new Image();
+battleBG.src = "img/battle/battle3.png";
+const pkmn1 = new Image();
 pkmn1.src = "img/pokemons/back/b_bw_162.png"
-export const pkmn2 = new Image();
-pkmn2.src = "img/pokemons/front/spr_bw_157.png"
+const pkmn2 = new Image();
+pkmn2.src = "img/pokemons/front/spr_bw_153.png"
 
 export function createBattle (ctx, cvs) {
     //player.deactivate();
