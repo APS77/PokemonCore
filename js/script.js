@@ -30,10 +30,9 @@ pasto.src = "img/pasto.png";
 
 // BattleTile Instance
 let grass = new BattleTile (pasto);
-grass.setTilePosX = 30;
-grass.setTilePosY = 200;
-grass.setTileRatio = 10;
-grass.setTileRatio = 1;
+//grass.setTilePosX = 30;
+//grass.setTilePosY = 200;
+//grass.setTileRatio = 25;
 
 // Player Instance
 let juan = new Player (playerSprite);
@@ -43,13 +42,6 @@ juan.setPlayerWidth = 128;
 juan.setPlayerHeight = 192;
 juan.setPlayerSpeed = 5;
 
-function startAnimating (fps) {
-    fpsInterval = 1000/fps;
-    then = Date.now();
-    startTime = then;
-    animate();
-}
-
 function animate () {
     requestAnimationFrame(animate);
     now = Date.now();
@@ -57,16 +49,23 @@ function animate () {
     if (elapsed > fpsInterval) {
         then = now - (elapsed % fpsInterval);
         context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
-        grass.drawTile(context);
+        grass.drawTile(context, 30, 200, 25);
+        //grass.drawTiles(context, 70, 100, 3, 4);
         juan.drawSprite(context);
         grass.showTileHitbox(context);
         juan.showPlayerHitbox(context);
         collisionDetect( juan.getHitbox(), grass.getHitbox() );
-        //grass.battleLauncher();
+        grass.battleLauncher();
         requestAnimationFrame(animate);
         juan.movePlayer();
-        juan.handlePlayerFrame();
     }
+}
+
+function startAnimating (fps) {
+    fpsInterval = 1000/fps;
+    then = Date.now();
+    startTime = then;
+    animate();
 }
 
 startAnimating(24);
@@ -82,7 +81,10 @@ function collisionDetect(playerHitbox, ...battleTileHitbox) {
     resetHitboxColor();
     battleTileHitbox.forEach (function (battleTile) {
         grass.playerOnTile = false;
-        if ( isPlayerOffTheTile(playerHitbox, battleTile) ) return;
+        if ( isPlayerOffTheTile(playerHitbox, battleTile) ) {
+            grass.battleIndicator = [];
+            return;    
+        }
         grass.playerOnTile = true;
         changeHitboxColor();
     })
