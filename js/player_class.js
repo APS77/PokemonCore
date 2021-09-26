@@ -78,9 +78,17 @@ export class Player {
     }
 
     // METHODS
-    drawSprite (context) {
-        context.drawImage(this.spriteIMG, this.width * this.frameX, this.height * this.frameY,
-            this.width, this.height, this.posX, this.posY, this.width/1.3, this.height/1.3);
+    drawSprite (context) { // Pool this Object Method
+        let spriteImage = this.spriteIMG,
+            sx = this.width * this.frameX,
+            sy = this.height * this.frameY,
+            sWidth = this.width,
+            sHeight = this.height,
+            dx = this.posX,
+            dy = this.posY,
+            dWidth = this.width/1.3,
+            dHeight = this.height/1.3;
+        context.drawImage(spriteImage, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
     }
 
     movePlayer () {  //  A D W S (en ese orden)
@@ -91,6 +99,7 @@ export class Player {
         this.setRightMovement(keys);
         this.setUpMovement(keys);
         this.setDownMovement(keys);
+        this.handlePlayerFrame();
     }
 
     deactivate() {
