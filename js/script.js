@@ -29,17 +29,17 @@ const pasto = new Image();
 pasto.src = "img/pasto.png";
 
 // BattleTile Instance
-let grass = new BattleTile (pasto);
-//grass.setTilePosX = 30;
-//grass.setTilePosY = 200;
-//grass.setTileRatio = 25;
+let grass1 = new BattleTile (pasto);
+grass1.setAttributes(50, 200, 25);
+//grass1.setTilePosX = 30;
+//grass1.setTilePosY = 200;
+//grass1.setTileRatio = 25;
 
 // Player Instance
 let juan = new Player (playerSprite);
-juan.setPlayerPosX = 5;
-juan.setPlayerPosY = 65;
-juan.setPlayerWidth = 128;
-juan.setPlayerHeight = 192;
+juan.setPosition(25, 65);
+//juan.setPlayerPosX = 5;
+//juan.setPlayerPosY = 65;
 juan.setPlayerSpeed = 5;
 
 function animate () {
@@ -49,13 +49,12 @@ function animate () {
     if (elapsed > fpsInterval) {
         then = now - (elapsed % fpsInterval);
         context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
-        grass.drawTile(context, 30, 200, 25);
-        //grass.drawTiles(context, 70, 100, 3, 4);
+        grass1.drawTile(context);
         juan.drawSprite(context);
-        grass.showTileHitbox(context);
+        grass1.showTileHitbox(context);
         juan.showPlayerHitbox(context);
-        collisionDetect( juan.getHitbox(), grass.getHitbox() );
-        grass.battleLauncher();
+        collisionDetect( juan.getHitbox(), grass1.getHitbox() );
+        grass1.battleLauncher();
         requestAnimationFrame(animate);
         juan.movePlayer();
     }
@@ -77,15 +76,16 @@ function isPlayerOffTheTile (playerHitbox, battleTile) {
            playerHitbox[3] + playerHitbox[1] >= battleTile[3] + battleTile[1] + 10
 }
 
+// HACER QUE FUNCIONE EN GENERAL!!
 function collisionDetect(playerHitbox, ...battleTileHitbox) {
     resetHitboxColor();
     battleTileHitbox.forEach (function (battleTile) {
-        grass.playerOnTile = false;
+        grass1.playerOnTile = false;
         if ( isPlayerOffTheTile(playerHitbox, battleTile) ) {
-            grass.battleIndicator = [];
+            grass1.battleIndicator = [];
             return;    
         }
-        grass.playerOnTile = true;
+        grass1.playerOnTile = true;
         changeHitboxColor();
     })
 }
