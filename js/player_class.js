@@ -38,7 +38,7 @@ export class Player {
         this.height = 48;
         this.frameX = 0;
         this.frameY = 0;
-        this.speed = null;
+        this.speed = 5;
         this.moving = false;
         this.spriteIMG = spriteIMG;
         this.canMove = true;
