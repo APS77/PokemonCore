@@ -22,10 +22,16 @@ export class BattleTile {
         this.ratio = ratio;
     }
 
-    drawTile (context, posx, posy, ratio) {
-        this.setTilePosX = posx;
-        this.setTilePosY = posy;
+    setAttributes (x, y, ratio) {
+        this.setTilePosX = x;
+        this.setTilePosY = y;
         this.setTileRatio = ratio;
+    }
+
+    drawTile (context) {
+        //this.setTilePosX = posx;
+        //this.setTilePosY = posy;
+        //this.setTileRatio = ratio;
         context.drawImage(this.tileIMG, this.posX, this.posY, this.width, this.height);
     }
 
@@ -64,8 +70,10 @@ export class BattleTile {
     battleLauncher () {
         if ( !this.isbattle() ) return;
         console.log("BATALLA INICIADA");
+        console.log("<Deactivate player>");
     }
 
+    /*
     drawTiles (context, posX, posY, rows, columns) {
         for (let x = posX; x < posX + rows * 20; x += 20) {
             for (let y = posY; y < posY + columns * 20; y += 20) {
@@ -73,4 +81,5 @@ export class BattleTile {
             }
         }
     }
+    */
 }
