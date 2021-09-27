@@ -131,11 +131,6 @@ function showAttackBtn (i) {
     document.getElementById("attackMenu").appendChild(btn);
 }
 
-function removeAtackButton () {
-    let btn = document.getElementById("attackBtn");
-    btn.remove();
-}
-
 function resetBattleMenu () {
     let reset = document.getElementById("battleMenu");
     reset.remove()
@@ -151,9 +146,6 @@ function backButton () {
     })
     document.getElementById("battleMenu").appendChild(btn);
 }
-
-// LOOP BATALLA
-
 
 function clearBox(elementID) {
     let div = document.getElementById(elementID);
@@ -190,7 +182,7 @@ function attackButton () {
         showAttackBtn(1);
         showAttackBtn(2);
         backButton();
-        removeAtackButton();
+        
     })
     document.getElementById("battleMenu").appendChild(btn);
 }
