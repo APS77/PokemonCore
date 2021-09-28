@@ -13,39 +13,40 @@ pkmn1.src = "img/pokemons/back/b_bw_162.png";
 const pkmn2 = new Image();
 pkmn2.src = "img/pokemons/front/spr_bw_153.png";
 
-battleBG.onload = function() {context.drawImage(battleBG, 0, 0, canvas.width, canvas.height)}
-pkmn1.onload = function() {context.drawImage(pkmn1, 110, 130, 250, 250)}
-pkmn2.onload = function() {context.drawImage(pkmn2, 410, 70, 200, 200)}
+battleBG.onload = function () { context.drawImage(battleBG, 0, 0, canvas.width, canvas.height) }
+pkmn1.onload = function () { context.drawImage(pkmn1, 110, 130, 250, 250) }
+pkmn2.onload = function () { context.drawImage(pkmn2, 410, 70, 200, 200) }
 
 // Pokemon Stats
 const HP = "HP",
-      ATTACK = "Attack",
-      DEFENSE = "Defense",
-      SPATT = "SpAttack",
-      SPDEF = "SpDefense",
-      SPEED = "Speed",
-// ATTACKS ATTRIBUTES      
-      PHYSICAL = "Physical",
-      SPECIAL = "Special",
-      Status = "Status",
-// COMANDOS
-      DO_ATTACK = "attack",
-      DO_ATTACK_SELECTION = "selected_attack";
+    ATTACK = "Attack",
+    DEFENSE = "Defense",
+    SPATT = "SpAttack",
+    SPDEF = "SpDefense",
+    SPEED = "Speed",
+    // ATTACKS ATTRIBUTES      
+    PHYSICAL = "Physical",
+    SPECIAL = "Special",
+    Status = "Status",
+    // COMANDOS
+    DO_ATTACK = "attack",
+    DO_ATTACK_SELECTION = "selected_attack";
 
 class Battle {
-    constructor (pkmn1, pkmn2) {
+    constructor(pkmn1, pkmn2) {
         this.pkmn1 = pkmn1;
         this.pkmn2 = pkmn2;
         this.currentTurn = 0;
     }
 
-    isFinished () {
+    isFinished() {
         return this.pkmn1.currentHP <= 0 || this.pkmn2.currentHP <= 0 // si algun pokemon fue debilitado
     }
 }
 
 class Pokemon {
-    constructor (name, level, type1, type2) {
+    constructor(config) {
+        let { name, level, type1, type2 } = config;
         this.name = name;
         this.level = level;
         this.type1 = type1;
@@ -53,12 +54,12 @@ class Pokemon {
         this.attacks = []; // vector with 4 attacks
         this.stats = {}; // diccionario con stats
         this.currentStatus = 0; // 0:sano 1:envenenado 2:paralizado... y asi
-        this.currentHP = 0; 
+        this.currentHP = 0;
     }
 }
 
 class Attack {
-    constructor (name, attackType, category, pp, power, accuracy) {
+    constructor(name, attackType, category, pp, power, accuracy) {
         this.name = name;
         this.type = attackType;
         this.category = category; // fisico | especial | de estado
@@ -69,18 +70,18 @@ class Attack {
 }
 
 class Turn {
-    constructor () {
+    constructor() {
         this.command1 = null;
         this.command2 = null;
     }
 
-    canStart () {
-        return this.command1 != null && this.command2 != null; 
+    canStart() {
+        return this.command1 != null && this.command2 != null;
     }
 }
 
 class Command {
-    constructor (action) {
+    constructor(action) {
         this.action = action; // Por ejemplo atacar
     }
 }
@@ -88,14 +89,24 @@ class Command {
 // BATTLE MAIN ------------------------------------------------------------------------------------------
 
 // Define pokemon with stats
-let pokemon1 = new Pokemon("Furret", 50, "normal", null);
-let pokemon2 = new Pokemon("Bayleef", 50, "grass", null);
+let pokemon1 = new Pokemon({
+    name: "Furret",
+    level: 50, 
+    type1: "normal",
+    type2: null
+});
+let pokemon2 = new Pokemon({
+    name: "Bayleef",
+    level: 50,
+    type1: "grass",
+    type2: null
+});
 pokemon1.currentHP = 85;
 pokemon2.currentHP = 60;
 
 // Base Stats
 pokemon1.stats = {
-    HP:  85,
+    HP: 85,
     ATTACK: 76,
     DEFENSE: 64,
     SPATT: 45,
@@ -104,7 +115,7 @@ pokemon1.stats = {
 }
 
 pokemon2.stats = {
-    HP:  60,
+    HP: 60,
     ATTACK: 62,
     DEFENSE: 80,
     SPATT: 63,
@@ -122,22 +133,23 @@ pokemon1.attacks.push(tackle);
 
 let battle = new Battle(pokemon1, pokemon2);
 
-function showAttackBtn (i) {
+function showAttackBtn(i) {
     let btn = document.createElement("button");
-    btn.innerHTML = pokemon1.attacks[i].name;
+    //btn.textContent = pokemon1.attacks[i].name;
+    btn.insertAdjacentText('afterbegin', pokemon1.attacks[i].name);
     btn.addEventListener("click", function () {
-        console.log(`${pokemon1.name} used ${pokemon1.attacks[i].name}!`);    
-    })
+        console.log(`${pokemon1.name} used ${pokemon1.attacks[i].name}!`);
+    });
     document.getElementById("attackMenu").appendChild(btn);
 }
 
-function resetBattleMenu () {
+function resetBattleMenu() {
     let reset = document.getElementById("battleMenu");
     reset.remove()
     battleMenu();
 }
 
-function backButton () {
+function backButton() {
     let btn = document.createElement("button");
     btn.innerHTML = "Back";
     btn.addEventListener("click", function () {
@@ -149,8 +161,8 @@ function backButton () {
 
 function clearBox(elementID) {
     let div = document.getElementById(elementID);
-      
-    while(div.firstChild) {
+
+    while (div.firstChild) {
         div.removeChild(div.firstChild);
     }
 }
@@ -161,13 +173,13 @@ function createDiv(elementID) {
     return div;
 }
 
-function createMessage (texto) {
+function createMessage(texto) {
     let msg = document.createElement("p");
     msg.innerText = texto;
     return msg;
 }
 
-function attackButton () {
+function attackButton() {
     let btn = document.createElement("button");
     btn.id = "attackBtn";
     btn.innerHTML = "Attack";
@@ -182,12 +194,12 @@ function attackButton () {
         showAttackBtn(1);
         showAttackBtn(2);
         backButton();
-        
+
     })
     document.getElementById("battleMenu").appendChild(btn);
 }
 
-function runAwayButton () {
+function runAwayButton() {
     let btn = document.createElement("button");
     btn.id = "runAwayBtn";
     btn.innerHTML = "Run Away";
@@ -201,7 +213,7 @@ function runAwayButton () {
     })
 }
 
-function battleMenu () {
+function battleMenu() {
     let battleMenu = document.createElement("div");
     battleMenu.id = "battleMenu";
     document.body.appendChild(battleMenu);
