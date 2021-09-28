@@ -10,9 +10,7 @@ const config = {
 */
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
-
 let fpsInterval, startTime, now, then, elapsed;
-
 
 canvas.height = 400;
 canvas.width = 760;
@@ -28,15 +26,10 @@ pasto.src = "img/pasto.png";
 // BattleTile Instance
 let grass1 = new BattleTile (pasto);
 grass1.setAttributes(50, 200, 25);
-//grass1.setTilePosX = 30;
-//grass1.setTilePosY = 200;
-//grass1.setTileRatio = 25;
 
 // Player Instance
 let juan = new Player (playerSprite);
 juan.setPosition(25, 65);
-//juan.setPlayerPosX = 5;
-//juan.setPlayerPosY = 65;
 
 function animate () {
     requestAnimationFrame(animate);
@@ -47,8 +40,8 @@ function animate () {
         context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
         grass1.drawTile(context);
         juan.drawSprite(context);
-        grass1.showTileHitbox(context);
-        juan.showPlayerHitbox(context);
+        grass1.showHitbox(context);
+        juan.showHitbox(context);
         collisionDetect( juan.getHitbox(), grass1.getHitbox() );
         grass1.battleLauncher();
         requestAnimationFrame(animate);
@@ -65,6 +58,9 @@ function startAnimating (fps) {
 
 startAnimating(24);
 
+// ####################################
+//    CAMBIAR A LA CLASE BATTLE TILE
+// ####################################
 function isPlayerOffTheTile (playerHitbox, battleTile) {
     return playerHitbox[0] >= battleTile[2] + battleTile[0] - 5 ||
            playerHitbox[2] + playerHitbox[0] <= battleTile[0] + 5 ||

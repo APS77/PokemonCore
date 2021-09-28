@@ -1,9 +1,9 @@
 export class BattleTile {
-    constructor (tileIMG) {
+    constructor (tileImg) {
         this.posX = null;
         this.posY = null;
         this.ratio = null;
-        this.tileIMG = tileIMG;
+        this.tileImg = tileImg;
         this.width = 20;
         this.height = 20;
         this.battleIndicator = [];
@@ -32,14 +32,14 @@ export class BattleTile {
         //this.setTilePosX = posx;
         //this.setTilePosY = posy;
         //this.setTileRatio = ratio;
-        context.drawImage(this.tileIMG, this.posX, this.posY, this.width, this.height);
+        context.drawImage(this.tileImg, this.posX, this.posY, this.width, this.height);
     }
 
     getHitbox () {
         return [this.posX, this.posY, this.width, this.height];
     }
 
-    showTileHitbox (context) {
+    showHitbox (context) {
         context.beginPath();
         context.rect(this.posX, this.posY, this.width, this.height);
         context.stroke();
@@ -77,7 +77,7 @@ export class BattleTile {
     drawTiles (context, posX, posY, rows, columns) {
         for (let x = posX; x < posX + rows * 20; x += 20) {
             for (let y = posY; y < posY + columns * 20; y += 20) {
-                context.drawImage(this.tileIMG, x, y, 20, 20);
+                context.drawImage(this.tileImg, x, y, 20, 20);
             }
         }
     }

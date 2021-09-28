@@ -161,7 +161,7 @@ function collisionDetect(getHitbox, ...rectPasto) {
     } )
 }
 
-function showPlayerHitbox (getHitbox) {
+function showHitbox (getHitbox) {
     // show player's hitbox
     context.rect(getHitbox[0], getHitbox[1], getHitbox[2], getHitbox[3])
     context.stroke(); 

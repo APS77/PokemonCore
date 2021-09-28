@@ -31,7 +31,7 @@ window.addEventListener('click', (event) => {
 })
 */
 export class Player {
-    constructor (spriteIMG) {
+    constructor (spriteImg) {
         this.posX = null;
         this.posY = null;
         this.width = 32;
@@ -40,42 +40,19 @@ export class Player {
         this.frameY = 0;
         this.speed = 5;
         this.moving = false;
-        this.spriteIMG = spriteIMG;
+        this.spriteImg = spriteImg;
         this.canMove = true;
     }
 
     // SETTERS AND GETTERS
-    set setPlayerPosX (posX) {
-        this.posX = posX + 3;
-    } // Utilizar multiplos de 5 para que calze con velocidad 5 ( o multiplo de 5 tb)
-
-    set setPlayerPosY (posY) {
-        this.posY = posY;
-    }
-
-    set setPlayerWidth (width) {
-        this.width = width/4;
-    }
-
-    set setPlayerHeight (height) {
-        this.height = height/4;
-    }
-
-    set setPlayerSpeed (speed) {
-        this.speed = speed;
-    }
-
-    get getPlayerPos () {
-        return (`Posicion inicial = x: ${this.posX}, y: ${this.posY}`);
-    }
-
-    get getPlayerDimensions () {
-        return (`Player sprite = Width: ${this.width}, Height: ${this.height}`);
-    }
-
-    get getPlayerSpeed () {
-        return (`Player Speed: ${this.speed}`);
-    }
+    set setPlayerPosX (posX) {this.posX = posX + 3;} // Utilizar multiplos de 5 para que calze con velocidad 5 ( o multiplo de 5 tb)
+    set setPlayerPosY (posY) {this.posY = posY;}
+    set setPlayerWidth (width) {this.width = width/4;}
+    set setPlayerHeight (height) {this.height = height/4;}
+    set setPlayerSpeed (speed) {this.speed = speed;}
+    get getPlayerPos () {return (`Posicion inicial = x: ${this.posX}, y: ${this.posY}`);}
+    get getPlayerDimensions () {return (`Player sprite = Width: ${this.width}, Height: ${this.height}`);}
+    get getPlayerSpeed () {return (`Player Speed: ${this.speed}`);}
 
     // METHODS
     setPosition (x, y) {
@@ -84,7 +61,7 @@ export class Player {
     }
 
     drawSprite (context) { // Pool this Object Method
-        let spriteImage = this.spriteIMG,
+        let spriteImage = this.spriteImg,
             sx = this.width * this.frameX,
             sy = this.height * this.frameY,
             sWidth = this.width,
@@ -187,7 +164,7 @@ export class Player {
         return [this.posX + 2, this.posY + 5, this.width - 12, this.height - 18];
     }
 
-    showPlayerHitbox (context) {
+    showHitbox (context) {
         context.beginPath();
         context.strokeStyle = "black"; //always black
         context.rect(this.posX + 2, this.posY + 5, this.width - 12, this.height - 18);
