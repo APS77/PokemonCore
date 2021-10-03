@@ -1,3 +1,5 @@
+import {launchBatlle} from "./battleMain.js";
+
 let context = canvas.getContext("2d");
 
 export class BattleTile {
@@ -66,10 +68,19 @@ export class BattleTile {
         return this.randomBattleHandler();
     }
 
-    battleLauncher () {
+    battleLauncher (player) {
         if ( !this.isbattle() ) return;
         console.log("BATALLA INICIADA");
         console.log("<Deactivate player>");
+        // Deactivate player movement
+        player.deactivate();
+        // Move battle tile off screen (canvas) and set ratio to 0
+        this.deactivate();
+        launchBatlle();
+    }
+
+    deactivate() {
+        this.setAttributes(-30,-30,0);
     }
 
     isPlayerOffTheTile (playerHitbox, battleTile) {
@@ -79,7 +90,6 @@ export class BattleTile {
             playerHitbox.height + playerHitbox.y >= battleTile[3] + battleTile[1] + 10
     };
     
-    // HACER QUE FUNCIONE EN GENERAL!!
     collisionDetect(playerHitbox) {
         this.resetHitboxColor();
         this.playerOnTile = false;
