@@ -1,3 +1,4 @@
+let context = canvas.getContext("2d");
 let keys = [];
 let move = false; // check if it is moving or not
 
@@ -27,8 +28,8 @@ window.addEventListener("keyup", function (e) {
 
 export class Player {
     constructor (spriteImg) {
-        this.posX = null;
-        this.posY = null;
+        this.x = null;
+        this.y = null;
         this.width = 32;
         this.height = 48;
         this.frameX = 0;
@@ -40,29 +41,29 @@ export class Player {
     }
 
     // Setters
-    set setPlayerPosX (posX) {this.posX = posX + 3;} // Utilizar multiplos de 5 para que calze con velocidad 5 ( o multiplo de 5 tb)
-    set setPlayerPosY (posY) {this.posY = posY;}
-    set setPlayerWidth (width) {this.width = width/4;}
-    set setPlayerHeight (height) {this.height = height/4;}
-    set setPlayerSpeed (speed) {this.speed = speed;}
+    set setX (x) {this.x = x + 3;} // Utilizar multiplos de 5 para que calze con velocidad 5 ( o multiplo de 5 tb)
+    set setY (y) {this.y = y;}
+    set setWidth (width) {this.width = width/4;}
+    set setHeight (height) {this.height = height/4;}
+    set setSpeed (speed) {this.speed = speed;}
     // Getters
-    get getPlayerPos () {return (`Posicion inicial = x: ${this.posX}, y: ${this.posY}`);}
-    get getPlayerDimensions () {return (`Player sprite = Width: ${this.width}, Height: ${this.height}`);}
-    get getPlayerSpeed () {return (`Player Speed: ${this.speed}`);}
+    get getPos () {return (`Posicion inicial = x: ${this.x}, y: ${this.y}`);}
+    get getDimensions () {return (`Player sprite = Width: ${this.width}, Height: ${this.height}`);}
+    get getSpeed () {return (`Player Speed: ${this.speed}`);}
 
     setPosition (x, y) {
-        this.setPlayerPosX = x;
-        this.setPlayerPosY = y;
+        this.x = x;
+        this.y = y;
     }
 
-    drawSprite (context) { // Pool this Object Method
+    drawSprite () { // Pool this Object Method
         let spriteImage = this.spriteImg,
             sx = this.width * this.frameX,
             sy = this.height * this.frameY,
             sWidth = this.width,
             sHeight = this.height,
-            dx = this.posX,
-            dy = this.posY,
+            dx = this.x,
+            dy = this.y,
             dWidth = this.width/1.3,
             dHeight = this.height/1.3;
         context.drawImage(spriteImage, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
@@ -115,7 +116,7 @@ export class Player {
     }
 
     rightBorderCollisionCheck() {
-        if (this.x < canvas.width - this.width + 10) this.x += this.speed;
+        if (this.x < canvas.width - this.width + 8) this.x += this.speed;
     }
     // ---> Up
     upKeyPriority(keys) {
@@ -131,7 +132,7 @@ export class Player {
     }
 
     downBorderCollisionCheck() {
-        if (this.y < canvas.height - this.height + 10) this.y += this.speed;
+        if (this.y < canvas.height - this.height + 9) this.y += this.speed;
     }
     // End movement
     deactivate() {
