@@ -1,6 +1,8 @@
+import { Pokemon } from "./pokemon_class.js";
+import { Attack } from "./attack_class.js";
+
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
-let tmpCommand;
 
 canvas.width = 760;
 canvas.height = 400;
@@ -13,9 +15,7 @@ pkmn1.src = "img/pokemons/back/b_bw_162.png";
 const pkmn2 = new Image();
 pkmn2.src = "img/pokemons/front/spr_bw_153.png";
 
-battleBG.onload = function () { context.drawImage(battleBG, 0, 0, canvas.width, canvas.height) }
-pkmn1.onload = function () { context.drawImage(pkmn1, 110, 130, 250, 250) }
-pkmn2.onload = function () { context.drawImage(pkmn2, 410, 70, 200, 200) }
+
 
 // Pokemon Stats
 const HP = "HP",
@@ -24,13 +24,13 @@ const HP = "HP",
     SPATT = "SpAttack",
     SPDEF = "SpDefense",
     SPEED = "Speed",
-    // ATTACKS ATTRIBUTES      
     PHYSICAL = "Physical",
     SPECIAL = "Special",
-    Status = "Status",
+    Status = "Status",  
     // COMANDOS
     DO_ATTACK = "attack",
     DO_ATTACK_SELECTION = "selected_attack";
+
 
 class Battle {
     constructor(pkmn1, pkmn2) {
@@ -41,31 +41,6 @@ class Battle {
 
     isFinished() {
         return this.pkmn1.currentHP <= 0 || this.pkmn2.currentHP <= 0 // si algun pokemon fue debilitado
-    }
-}
-
-class Pokemon {
-    constructor(config) {
-        let { name, level, type1, type2 } = config;
-        this.name = name;
-        this.level = level;
-        this.type1 = type1;
-        this.type2 = type2;
-        this.attacks = []; // vector with 4 attacks
-        this.stats = {}; // diccionario con stats
-        this.currentStatus = 0; // 0:sano 1:envenenado 2:paralizado... y asi
-        this.currentHP = 0;
-    }
-}
-
-class Attack {
-    constructor(name, attackType, category, pp, power, accuracy) {
-        this.name = name;
-        this.type = attackType;
-        this.category = category; // fisico | especial | de estado
-        this.pp = pp;
-        this.power = power;
-        this.accuracy = accuracy;
     }
 }
 
@@ -87,6 +62,16 @@ class Command {
 }
 
 // BATTLE MAIN ------------------------------------------------------------------------------------------
+function drawBattle(pkmn1, pkmn2){
+    context.drawImage(battleBG, 0, 0, canvas.width, canvas.height)
+    context.drawImage(pkmn1, 110, 130, 250, 250)
+    context.drawImage(pkmn2, 410, 70, 200, 200)
+}
+
+export function launchBatlle() {
+    drawBattle(pkmn1, pkmn2);
+    battleMenu();
+}
 
 // Define pokemon with stats
 let pokemon1 = new Pokemon({
@@ -133,6 +118,9 @@ pokemon1.attacks.push(tackle);
 
 let battle = new Battle(pokemon1, pokemon2);
 
+/*###########################
+  ### Battle menu buttons ###
+  ###########################*/
 function showAttackBtn(i) {
     let btn = document.createElement("button");
     //btn.textContent = pokemon1.attacks[i].name;
@@ -223,4 +211,3 @@ function battleMenu() {
     attackButton();
     runAwayButton();
 }
-battleMenu();
