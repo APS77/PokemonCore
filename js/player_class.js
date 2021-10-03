@@ -137,6 +137,8 @@ export class Player {
     // End movement
     deactivate() {
         this.canMove = false;
+        this.moving = false;
+        this.setPosition(-30,-30);
         // hidden al player sprite or stop drawing, i think you were right the other day
     }
     // Update
