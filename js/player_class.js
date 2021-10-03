@@ -50,7 +50,6 @@ export class Player {
     get getPlayerDimensions () {return (`Player sprite = Width: ${this.width}, Height: ${this.height}`);}
     get getPlayerSpeed () {return (`Player Speed: ${this.speed}`);}
 
-    // METHODS
     setPosition (x, y) {
         this.setPlayerPosX = x;
         this.setPlayerPosY = y;
