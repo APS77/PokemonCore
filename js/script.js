@@ -25,7 +25,7 @@ pasto.src = "img/pasto.png";
 
 // BattleTile Instance
 let grass1 = new BattleTile (pasto);
-grass1.setAttributes(50, 200, 25);
+grass1.setAttributes(50, 200, 25); //(x,y,ratio)
 
 // Player Instance
 let juan = new Player (playerSprite);
@@ -35,18 +35,17 @@ function animate () {
     requestAnimationFrame(animate);
     now = Date.now();
     elapsed = now - then;
-    if (elapsed > fpsInterval) {
-        then = now - (elapsed % fpsInterval);
-        context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
-        grass1.drawTile(context);
-        juan.drawSprite(context);
-        grass1.showHitbox(context);
-        juan.showHitbox(context);
-        collisionDetect( juan.getHitboxCoordinates(), grass1.getHitbox() );
-        grass1.battleLauncher();
-        requestAnimationFrame(animate);
-        juan.update();
-    }
+    if (elapsed <= fpsInterval) return;
+    then = now - (elapsed % fpsInterval);
+    context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
+    grass1.drawTile();
+    juan.drawSprite();
+    grass1.showHitbox(context);
+    juan.showHitbox(context);
+    grass1.collisionDetect( juan.getHitboxCoordinates() );
+    grass1.battleLauncher();
+    juan.update();
+    requestAnimationFrame(animate);
 }
 
 function startAnimating (fps) {
@@ -56,31 +55,4 @@ function startAnimating (fps) {
     animate();
 }
 
-startAnimating(24);
-
-// ####################################
-//    CAMBIAR A LA CLASE BATTLE TILE
-// ####################################
-function isPlayerOffTheTile (playerHitbox, battleTile) {
-    return playerHitbox.x >= battleTile[2] + battleTile[0] - 5 ||
-        playerHitbox.width + playerHitbox.x <= battleTile[0] + 5 ||
-        playerHitbox.height + playerHitbox.y <= battleTile[1] ||
-        playerHitbox.height + playerHitbox.y >= battleTile[3] + battleTile[1] + 10
-};
-
-// HACER QUE FUNCIONE EN GENERAL!!
-function collisionDetect(playerHitbox, ...battleTileHitbox) {
-    resetHitboxColor();
-    battleTileHitbox.forEach (function (battleTile) {
-        grass1.playerOnTile = false;
-        if ( isPlayerOffTheTile(playerHitbox, battleTile) ) {
-            grass1.battleIndicator = [];
-            return;    
-        }
-        grass1.playerOnTile = true;
-        changeHitboxColor();
-    })
-}
-
-function resetHitboxColor () {context.strokeStyle = "black";}
-function changeHitboxColor () {context.strokeStyle = "red";}
+startAnimating(30);
