@@ -10,7 +10,7 @@ window.addEventListener("keydown", function (e) {
         keys.push(e.keyCode);
         //console.log(keys)
     }
-})
+});
 window.addEventListener("keyup", function (e) {
     if(keys[1] == e.keyCode) {
         keys.pop();
@@ -23,13 +23,8 @@ window.addEventListener("keyup", function (e) {
     if (keys.length == 0) {
         move = false;
     }
-})
-/*
-window.addEventListener('click', (event) => {
-    if(event.target.matches('#btn')) console.log('click');
-    else if (event.target.matches('.btn2')) console.log('click 22222');
-})
-*/
+});
+
 export class Player {
     constructor (spriteImg) {
         this.posX = null;
@@ -44,12 +39,13 @@ export class Player {
         this.canMove = true;
     }
 
-    // SETTERS AND GETTERS
+    // Setters
     set setPlayerPosX (posX) {this.posX = posX + 3;} // Utilizar multiplos de 5 para que calze con velocidad 5 ( o multiplo de 5 tb)
     set setPlayerPosY (posY) {this.posY = posY;}
     set setPlayerWidth (width) {this.width = width/4;}
     set setPlayerHeight (height) {this.height = height/4;}
     set setPlayerSpeed (speed) {this.speed = speed;}
+    // Getters
     get getPlayerPos () {return (`Posicion inicial = x: ${this.posX}, y: ${this.posY}`);}
     get getPlayerDimensions () {return (`Player sprite = Width: ${this.width}, Height: ${this.height}`);}
     get getPlayerSpeed () {return (`Player Speed: ${this.speed}`);}
@@ -73,101 +69,105 @@ export class Player {
         context.drawImage(spriteImage, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
     }
 
-    movePlayer () {  //  A D W S (en ese orden)
-        if ( !this.canMove ) return;
+    // Movement
+    setMoveSentinels() {
         if (move == false) this.moving = false;
-        this.isMoving(keys);
-        this.setLeftMovement(keys);
-        this.setRightMovement(keys);
-        this.setUpMovement(keys);
-        this.setDownMovement(keys);
-        this.handlePlayerFrame();
-    }
-
-    deactivate() {
-        this.canMove = false;
-        // hidden al player sprite
-    }
-    
-    isMoving (keys) {
-        if ( !this.isAnyArrowKey(keys) ) return;
+        if ( !this.isSomeMovementKeyPress() ) return;
         this.moving = true;
         move = true;
     }
 
-    isAnyArrowKey (keys) {
+    isSomeMovementKeyPress() {
         return keys[0] == 87 || keys[0] == 83 || keys[0] == 65 || keys[0] == 68;
     }
 
-    // Left
-    setLeftMovement(keys) {
-        if ( !this.isLeftThePriority(keys) ) return;
-        this.frameY = 1;
-        this.checkLeftBorderCollision();
+    setAllMovement(keys) {
+        // A D W S (en ese orden)
+        this.setMovement(keys, 'left', 1);
+        this.setMovement(keys, 'right', 2);
+        this.setMovement(keys, 'up', 3);
+        this.setMovement(keys, 'down', 0);
     }
 
-    isLeftThePriority(keys) { 
+    setMovement(keys, direction, frameIndex) {
+        let { isTheKeyPriority, checkBorderCollision } = this.getMovementFuncs(direction);
+        if ( !this[isTheKeyPriority](keys) ) return;
+        this.frameY = frameIndex;
+        this[checkBorderCollision]();
+    }
+
+    getMovementFuncs(direction) {
+        return {
+            isTheKeyPriority: `${direction}KeyPriority`,
+            checkBorderCollision: `${direction}BorderCollisionCheck`
+        };
+    }
+    // ---> Left
+    leftKeyPriority(keys) {
         return keys[0] == 65 && keys.length == 1 || keys[0] == 68 && keys[1] == 65 || keys[0] == 65 && keys[1] == 68;
     }
 
-    checkLeftBorderCollision() {
-        if (this.posX > 0) this.posX -= this.speed;
+    leftBorderCollisionCheck() {
+        if (this.x > 0) this.x -= this.speed;
     }
-    //Right
-    setRightMovement (keys) {
-        if ( !this.isRightThePriority(keys) ) return; 
-        this.frameY = 2;
-        this.checkRightBorderCollision();
-    }
-
-    isRightThePriority (keys) {
+    //---> Right
+    rightKeyPriority(keys) {
         return keys[0] == 68 && keys.length == 1;
     }
 
-    checkRightBorderCollision () {
-        if (this.posX < canvas.width - this.width + 10) this.posX += this.speed;
+    rightBorderCollisionCheck() {
+        if (this.x < canvas.width - this.width + 10) this.x += this.speed;
     }
-    //Up
-    setUpMovement (keys) {
-        if ( !this.isUpThePriority(keys) ) return;
-        this.frameY = 3;
-        this.checkUpBorderColission();
+    // ---> Up
+    upKeyPriority(keys) {
+        return keys[keys.length - 1] == 87 || keys[0] == 87 || keys[0] == 83 && keys[1] == 87 || keys[0] == 87 && keys[1] == 83;
     }
 
-    isUpThePriority (keys) {
-        return keys[keys.length - 1] == 87 || keys[0] == 87 || keys[0] == 83 && keys[1] == 87 || keys[0] == 87 && keys[1] == 83
+    upBorderCollisionCheck() {
+        if (this.y > 25) this.y -= this.speed;
     }
-
-    checkUpBorderColission () {
-        if (this.posY > 25) this.posY -= this.speed; 
-    }
-    //Down
-    setDownMovement (keys) {
-        if ( !this.isDownThePriority(keys) ) return;
-        this.frameY = 0;
-        this.checkDownBorderColission();
-    }
-
-    isDownThePriority (keys) {
+    // ---> Down
+    downKeyPriority(keys) {
         return keys[keys.length - 1] == 83 && keys[0] != 87 || keys[0] == 83 && keys[1] != 87;
     }
 
-    checkDownBorderColission () {
-        if (this.posY < canvas.height - this.height + 10) this.posY += this.speed;
+    downBorderCollisionCheck() {
+        if (this.y < canvas.height - this.height + 10) this.y += this.speed;
     }
-    // ------------------------------------------------------------------------------
-    handlePlayerFrame () {
+    // End movement
+    deactivate() {
+        this.canMove = false;
+        // hidden al player sprite or stop drawing, i think you were right the other day
+    }
+    // Update
+    update() {
+        this.move();
+        this.animate();
+    }
+
+    move () { 
+        if ( !this.canMove ) return;
+        this.setMoveSentinels();
+        this.setAllMovement(keys);
+    }
+
+    animate () {
         (this.frameX < 3 && this.moving) ? this.frameX++ : this.frameX = 0;
     }
-
-    getHitbox() {
-        return [this.posX + 2, this.posY + 5, this.width - 12, this.height - 18];
+    // Hitbox
+    showHitbox () {
+        let { x, y, width, height } =  this.getHitboxCoordinates();
+        context.beginPath();
+        context.rect(x, y, width, height);
+        context.stroke();
     }
 
-    showHitbox (context) {
-        context.beginPath();
-        context.strokeStyle = "black"; //always black
-        context.rect(this.posX + 2, this.posY + 5, this.width - 12, this.height - 18);
-        context.stroke();
+    getHitboxCoordinates() {
+        return {
+            x: this.x + 2,
+            y: this.y + 5,
+            width: this.width - 12,
+            height: this.height - 18
+        }
     }
 }
