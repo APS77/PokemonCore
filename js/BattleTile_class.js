@@ -1,7 +1,9 @@
+let context = canvas.getContext("2d");
+
 export class BattleTile {
     constructor (tileImg) {
-        this.posX = null;
-        this.posY = null;
+        this.x = null;
+        this.y = null;
         this.ratio = null;
         this.tileImg = tileImg;
         this.width = 20;
@@ -10,44 +12,41 @@ export class BattleTile {
         this.playerOnTile = false;
     }
 
-    set setTilePosX (posX) {
-        this.posX = posX;
+    set setX (x) {
+        this.x = x;
     }
 
-    set setTilePosY (posY) {
-        this.posY = posY;
+    set setY (y) {
+        this.y = y;
     }
 
-    set setTileRatio (ratio) {
+    set setBattleRatio (ratio) {
         this.ratio = ratio;
     }
 
     setAttributes (x, y, ratio) {
-        this.setTilePosX = x;
-        this.setTilePosY = y;
-        this.setTileRatio = ratio;
+        this.setX = x;
+        this.setY = y;
+        this.setBattleRatio = ratio;
     }
 
-    drawTile (context) {
-        //this.setTilePosX = posx;
-        //this.setTilePosY = posy;
-        //this.setTileRatio = ratio;
-        context.drawImage(this.tileImg, this.posX, this.posY, this.width, this.height);
+    drawTile () {
+        context.drawImage(this.tileImg, this.x, this.y, this.width, this.height);
     }
 
     getHitbox () {
-        return [this.posX, this.posY, this.width, this.height];
+        return [this.x, this.y, this.width, this.height];
     }
 
-    showHitbox (context) {
+    showHitbox () {
         context.beginPath();
-        context.rect(this.posX, this.posY, this.width, this.height);
+        context.rect(this.x, this.y, this.width, this.height);
         context.stroke();
     }
 
     getRandom() {
         return Math.random() * 100;
-      }
+    }
 
     battleChecker () {
         if ( this.battleIndicator[0] >= this.battleIndicator[1] ) return true;
@@ -73,10 +72,32 @@ export class BattleTile {
         console.log("<Deactivate player>");
     }
 
+    isPlayerOffTheTile (playerHitbox, battleTile) {
+        return playerHitbox.x >= battleTile[2] + battleTile[0] - 5 ||
+            playerHitbox.width + playerHitbox.x <= battleTile[0] + 5 ||
+            playerHitbox.height + playerHitbox.y <= battleTile[1] ||
+            playerHitbox.height + playerHitbox.y >= battleTile[3] + battleTile[1] + 10
+    };
+    
+    // HACER QUE FUNCIONE EN GENERAL!!
+    collisionDetect(playerHitbox) {
+        this.resetHitboxColor();
+        this.playerOnTile = false;
+        if ( this.isPlayerOffTheTile(playerHitbox, this.getHitbox() )) {
+            this.battleIndicator = [];    
+            return;
+        }
+        this.playerOnTile = true;
+        this.changeHitboxColor();
+        }
+    
+    resetHitboxColor () {context.strokeStyle = "black";}
+    changeHitboxColor () {context.strokeStyle = "red";}
+
     /*
-    drawTiles (context, posX, posY, rows, columns) {
-        for (let x = posX; x < posX + rows * 20; x += 20) {
-            for (let y = posY; y < posY + columns * 20; y += 20) {
+    drawTiles (context, x, y, rows, columns) {
+        for (let x = x; x < x + rows * 20; x += 20) {
+            for (let y = y; y < y + columns * 20; y += 20) {
                 context.drawImage(this.tileImg, x, y, 20, 20);
             }
         }
