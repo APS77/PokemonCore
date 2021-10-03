@@ -15,7 +15,7 @@ let fpsInterval, startTime, now, then, elapsed;
 canvas.height = 400;
 canvas.width = 760;
 
-// Imagenes
+// Images
 const playerSprite = new Image(); // 128 x 192 ideal
 playerSprite.src = "img/characters/p3.png";
 const imagenFondo = new Image();
@@ -42,10 +42,10 @@ function animate () {
         juan.drawSprite(context);
         grass1.showHitbox(context);
         juan.showHitbox(context);
-        collisionDetect( juan.getHitbox(), grass1.getHitbox() );
+        collisionDetect( juan.getHitboxCoordinates(), grass1.getHitbox() );
         grass1.battleLauncher();
         requestAnimationFrame(animate);
-        juan.movePlayer();
+        juan.update();
     }
 }
 
@@ -62,11 +62,11 @@ startAnimating(24);
 //    CAMBIAR A LA CLASE BATTLE TILE
 // ####################################
 function isPlayerOffTheTile (playerHitbox, battleTile) {
-    return playerHitbox[0] >= battleTile[2] + battleTile[0] - 5 ||
-           playerHitbox[2] + playerHitbox[0] <= battleTile[0] + 5 ||
-           playerHitbox[3] + playerHitbox[1] <= battleTile[1] ||
-           playerHitbox[3] + playerHitbox[1] >= battleTile[3] + battleTile[1] + 10
-}
+    return playerHitbox.x >= battleTile[2] + battleTile[0] - 5 ||
+        playerHitbox.width + playerHitbox.x <= battleTile[0] + 5 ||
+        playerHitbox.height + playerHitbox.y <= battleTile[1] ||
+        playerHitbox.height + playerHitbox.y >= battleTile[3] + battleTile[1] + 10
+};
 
 // HACER QUE FUNCIONE EN GENERAL!!
 function collisionDetect(playerHitbox, ...battleTileHitbox) {

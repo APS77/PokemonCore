@@ -155,7 +155,7 @@ export class Player {
         (this.frameX < 3 && this.moving) ? this.frameX++ : this.frameX = 0;
     }
     // Hitbox
-    showHitbox () {
+    showHitbox (context) {
         let { x, y, width, height } =  this.getHitboxCoordinates();
         context.beginPath();
         context.rect(x, y, width, height);
