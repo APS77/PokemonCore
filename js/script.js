@@ -8,6 +8,7 @@ const config = {
     debug: false
 };
 */
+var battle = false;
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
 let fpsInterval, startTime, now, then, elapsed;
@@ -25,11 +26,11 @@ pasto.src = "img/pasto.png";
 
 // BattleTile Instance
 let grass1 = new BattleTile (pasto);
-grass1.setAttributes(50, 200, 25); //(x,y,ratio)
+grass1.setAttributes(50, 200, 40); //(x,y,ratio)
 
 // Player Instance
-let juan = new Player (playerSprite);
-juan.setPosition(25, 65);
+let player = new Player (playerSprite);
+player.setPosition(25, 65);
 
 function animate () {
     requestAnimationFrame(animate);
@@ -39,12 +40,12 @@ function animate () {
     then = now - (elapsed % fpsInterval);
     context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
     grass1.drawTile();
-    juan.drawSprite();
+    player.drawSprite();
     grass1.showHitbox(context);
-    juan.showHitbox(context);
-    grass1.collisionDetect( juan.getHitboxCoordinates() );
-    grass1.battleLauncher();
-    juan.update();
+    player.showHitbox(context);
+    grass1.collisionDetect( player.getHitboxCoordinates() );
+    grass1.battleLauncher(player);
+    player.update();
     requestAnimationFrame(animate);
 }
 
