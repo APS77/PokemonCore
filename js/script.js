@@ -35,20 +35,6 @@ player.setPosition(25, 65);
 
 function animate () {
     if (!inBattle) overWorld(animate);
-    /* requestAnimationFrame(animate);
-    now = Date.now();
-    elapsed = now - then;
-    if (elapsed <= fpsInterval) return;
-    then = now - (elapsed % fpsInterval);
-    context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
-    grass1.drawTile();
-    player.drawSprite();
-    grass1.showHitbox(context);
-    player.showHitbox(context);
-    grass1.collisionDetect( player.getHitboxCoordinates() );
-    grass1.battleLauncher(player);
-    player.update();
-    requestAnimationFrame(animate); */
 }
 
 function overWorld(animate) {
