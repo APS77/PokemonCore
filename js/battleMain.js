@@ -15,7 +15,7 @@ pkmn1.src = "img/pokemons/back/b_bw_162.png";
 const pkmn2 = new Image();
 pkmn2.src = "img/pokemons/front/spr_bw_153.png";
 
-
+export let inBattle = false;
 
 // Pokemon Stats
 const HP = "HP",
@@ -62,13 +62,14 @@ class Command {
 }
 
 // BATTLE MAIN ------------------------------------------------------------------------------------------
-function drawBattle(pkmn1, pkmn2){
-    context.drawImage(battleBG, 0, 0, canvas.width, canvas.height)
-    context.drawImage(pkmn1, 110, 130, 250, 250)
-    context.drawImage(pkmn2, 410, 70, 200, 200)
+function drawBattle(pkmn1, pkmn2) {
+    context.drawImage(battleBG, 0, 0, canvas.width, canvas.height);
+    context.drawImage(pkmn1, 110, 130, 250, 250);
+    context.drawImage(pkmn2, 410, 70, 200, 200);
 }
 
 export function launchBatlle() {
+    inBattle = true;
     drawBattle(pkmn1, pkmn2);
     battleMenu();
 }
