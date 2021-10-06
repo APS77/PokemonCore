@@ -1,4 +1,5 @@
 import { overworldMusic } from "./audio.js";
+import Pokemon from './pokemon_class.js';
 import { Player } from "./player_class.js";
 import { BattleTile } from "./BattleTile_class.js";
 import { inBattle } from './battleMain.js';
@@ -31,6 +32,7 @@ grass1.setAttributes(50, 200, 40); //(x,y,ratio)
 // Player Instance
 let player = new Player (playerSprite);
 player.setPosition(25, 65);
+player.addPokemonToTheParty(Pokemon.furret);
 
 function animate () {
     if (!inBattle) overWorld(animate);

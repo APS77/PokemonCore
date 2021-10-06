@@ -74,7 +74,7 @@ export class BattleTile {
         console.log("<Deactivate player>");
         player.deactivate();
         // Move battle tile off screen (canvas) and set ratio to 0
-        launchBatlle();
+        launchBatlle(player);
     }
 
     isPlayerOffTheTile (playerHitbox, battleTile) {

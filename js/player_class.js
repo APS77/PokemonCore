@@ -4,6 +4,7 @@ let context = canvas.getContext("2d");
 let keys = [];
 let move = false; // check if it is moving or not
 const MAX_KEYS_PRESS = 2;
+const POKEMON_MAX_NUMBER = 6;
 
 window.addEventListener("keydown", function (e) {
     if (keys.length == 0) keys.push(e.keyCode);
@@ -28,6 +29,7 @@ export class Player {
         this.moving = false;
         this.spriteImg = spriteImg;
         this.canMove = true;
+        this.pokemons = new Array(POKEMON_MAX_NUMBER);
     }
     // Setters
     set setX (x) {this.x = x + 3;} // Utilizar multiplos de 5 para que calze con velocidad 5 ( o multiplo de 5 tb)
@@ -53,9 +55,13 @@ export class Player {
             sHeight = this.height,
             dx = this.x,
             dy = this.y,
-            dWidth = this.width/1.3,
-            dHeight = this.height/1.3;
+            dWidth = this.width / 1.3,
+            dHeight = this.height / 1.3;
         context.drawImage(spriteImage, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+    }
+
+    addPokemonToTheParty(pokemon) {
+        this.pokemons.unshift(pokemon);
     }
 
     deactivate() {

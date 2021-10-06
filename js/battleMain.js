@@ -10,10 +10,6 @@ canvas.height = 400;
 // Imagenes
 const battleBG = new Image();
 battleBG.src = "img/battle/battle3.png";
-const pkmn1 = new Image();
-pkmn1.src = "img/pokemons/back/b_bw_162.png";
-const pkmn2 = new Image();
-pkmn2.src = "img/pokemons/front/spr_bw_153.png";
 
 export let inBattle = false;
 
@@ -56,9 +52,11 @@ function drawBattle(pkmn1, pkmn2) {
     context.drawImage(pkmn2, 410, 70, 200, 200);
 }
 
-export function launchBatlle() {
+export function launchBatlle(player) {
     inBattle = true;
-    drawBattle(pkmn1, pkmn2);
+    //player.pokemons[0].sprites.back
+    console.log(player);
+    drawBattle(player.pokemons[0].sprites.back, Pokemon.bayleef.sprites.front);
     battleMenu();
 }
 
@@ -67,7 +65,7 @@ Pokemon.furret.attacks.push(Attack.scratch);
 Pokemon.furret.attacks.push(Attack.slam);
 Pokemon.furret.attacks.push(Attack.tackle);
 
-let battle = new Battle(Pokemon.furret, Pokemon.bayleef);
+new Battle(Pokemon.furret, Pokemon.bayleef);
 
 /*###########################
   ### Battle menu buttons ###
