@@ -1,5 +1,3 @@
-// ATTACKS ATTRIBUTES      
-
 export class Attack {
     constructor(name, attackType, category, pp, power, accuracy) {
         this.name = name;
