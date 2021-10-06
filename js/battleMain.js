@@ -1,4 +1,4 @@
-import { Pokemon } from "./pokemon_class.js";
+import Pokemon from "./pokemon_class.js";
 import Attack from "./attack_class.js";
 
 let canvas = document.getElementById("canvas");
@@ -17,17 +17,8 @@ pkmn2.src = "img/pokemons/front/spr_bw_153.png";
 
 export let inBattle = false;
 
-// Pokemon Stats
-const HP = "HP",
-    ATTACK = "Attack",
-    DEFENSE = "Defense",
-    SPATT = "SpAttack",
-    SPDEF = "SpDefense",
-    SPEED = "Speed",
-    // COMANDOS
-    DO_ATTACK = "attack",
+const DO_ATTACK = "attack",
     DO_ATTACK_SELECTION = "selected_attack";
-
 
 class Battle {
     constructor(pkmn1, pkmn2) {
@@ -71,57 +62,22 @@ export function launchBatlle() {
     battleMenu();
 }
 
-// Define pokemon with stats
-let pokemon1 = new Pokemon({
-    name: "Furret",
-    level: 50, 
-    type1: "normal",
-    type2: null
-});
-let pokemon2 = new Pokemon({
-    name: "Bayleef",
-    level: 50,
-    type1: "grass",
-    type2: null
-});
-pokemon1.currentHP = 85;
-pokemon2.currentHP = 60;
-
-// Base Stats
-pokemon1.stats = {
-    HP: 85,
-    ATTACK: 76,
-    DEFENSE: 64,
-    SPATT: 45,
-    SPDEF: 55,
-    SPEED: 90
-}
-
-pokemon2.stats = {
-    HP: 60,
-    ATTACK: 62,
-    DEFENSE: 80,
-    SPATT: 63,
-    SPDEF: 80,
-    SPEED: 60
-}
-
 // Attacks
-pokemon1.attacks.push(Attack.scratch);
-pokemon1.attacks.push(Attack.slam);
-pokemon1.attacks.push(Attack.tackle);
+Pokemon.furret.attacks.push(Attack.scratch);
+Pokemon.furret.attacks.push(Attack.slam);
+Pokemon.furret.attacks.push(Attack.tackle);
 
-let battle = new Battle(pokemon1, pokemon2);
+let battle = new Battle(Pokemon.furret, Pokemon.bayleef);
 
 /*###########################
   ### Battle menu buttons ###
   ###########################*/
 function showAttackBtn(i) {
     let btn = document.createElement("button");
-    //btn.textContent = pokemon1.attacks[i].name;
-    btn.insertAdjacentText('afterbegin', pokemon1.attacks[i].name);
+    //btn.textContent = Pokemon.furret.attacks[i].name;
+    btn.insertAdjacentText('afterbegin', Pokemon.furret.attacks[i].name);
     btn.addEventListener("click", function () {
-        console.log(`${pokemon1.name} used ${pokemon1.attacks[i].name}!`);
+        console.log(`${Pokemon.furret.name} used ${Pokemon.furret.attacks[i].name}!`);
     });
     document.getElementById("attackMenu").appendChild(btn);
 }
@@ -201,7 +157,7 @@ function battleMenu() {
     battleMenu.id = "battleMenu";
     document.body.appendChild(battleMenu);
     let para = document.createElement("P");
-    para.innerText = `What should ${pokemon1.name} do?`;
+    para.innerText = `What should ${Pokemon.furret.name} do?`;
     document.getElementById("battleMenu").appendChild(para);
     attackButton();
     runAwayButton();

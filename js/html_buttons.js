@@ -1,9 +1,9 @@
 function showAttackBtn(i) {
     let btn = document.createElement("button");
-    //btn.textContent = pokemon1.attacks[i].name;
-    btn.insertAdjacentText('afterbegin', pokemon1.attacks[i].name);
+    //btn.textContent = furret.attacks[i].name;
+    btn.insertAdjacentText('afterbegin', furret.attacks[i].name);
     btn.addEventListener("click", function () {
-        console.log(`${pokemon1.name} used ${pokemon1.attacks[i].name}!`);
+        console.log(`${furret.name} used ${furret.attacks[i].name}!`);
     });
     document.getElementById("attackMenu").appendChild(btn);
 }
@@ -83,7 +83,7 @@ export function battleMenu() {
     battleMenu.id = "battleMenu";
     document.body.appendChild(battleMenu);
     let para = document.createElement("P");
-    para.innerText = `What should ${pokemon1.name} do?`;
+    para.innerText = `What should ${furret.name} do?`;
     document.getElementById("battleMenu").appendChild(para);
     attackButton();
     runAwayButton();
