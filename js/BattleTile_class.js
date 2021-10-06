@@ -75,11 +75,6 @@ export class BattleTile {
 
     collisionDetect(playerHitbox) {
         this.resetHitboxColor();
-        /* this.playerOnTile = false;
-        if ( this.isPlayerOffTheTile(playerHitbox, this.getHitbox() )) {
-            this.battleIndicator = [];    
-            return;
-        } */
         if (this.isPlayerOffTheTile(playerHitbox) ) return;
         this.actionsOnPlayerOnTheTile();
     }
