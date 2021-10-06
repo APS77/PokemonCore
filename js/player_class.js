@@ -11,17 +11,9 @@ window.addEventListener("keydown", function (e) {
 });
 
 window.addEventListener("keyup", function (e) {
-    if(keys[1] == e.keyCode) {
-        keys.pop();
-        //console.log(keys);
-    }
-    if(keys[0] == e.keyCode) {
-        keys.shift();
-        //console.log(keys);
-    }
-    if (keys.length == 0) {
-        move = false;
-    }
+    if(keys[1] == e.keyCode) keys.pop();
+    if(keys[0] == e.keyCode) keys.shift();
+    if (keys.length == 0) move = false;
 });
 
 export class Player {
@@ -37,7 +29,6 @@ export class Player {
         this.spriteImg = spriteImg;
         this.canMove = true;
     }
-
     // Setters
     set setX (x) {this.x = x + 3;} // Utilizar multiplos de 5 para que calze con velocidad 5 ( o multiplo de 5 tb)
     set setY (y) {this.y = y;}
@@ -67,6 +58,10 @@ export class Player {
         context.drawImage(spriteImage, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
     }
 
+    deactivate() {
+        this.canMove = false;
+        this.moving = false;
+    }
     // Movement
     setMoveSentinels() {
         if (move == false) this.moving = false;
@@ -131,13 +126,6 @@ export class Player {
 
     downBorderCollisionCheck() {
         if (this.y < canvas.height - this.height + 9) this.y += this.speed;
-    }
-    // End movement
-    deactivate() {
-        this.canMove = false;
-        this.moving = false;
-        /* this.setPosition(-30,-30);
-        // hidden al player sprite or stop drawing, i think you were right the other day */
     }
     // Update
     update() {
