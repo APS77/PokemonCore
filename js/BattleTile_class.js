@@ -14,17 +14,9 @@ export class BattleTile {
         this.playerOnTile = false;
     }
 
-    set setX (x) {
-        this.x = x;
-    }
-
-    set setY (y) {
-        this.y = y;
-    }
-
-    set setBattleRatio (ratio) {
-        this.ratio = ratio;
-    }
+    set setX (x) { this.x = x; }
+    set setY (y) { this.y = y; }
+    set setBattleRatio (ratio) { this.ratio = ratio; }
 
     setAttributes (x, y, ratio) {
         this.setX = x;
@@ -55,12 +47,16 @@ export class BattleTile {
     }
 
     randomBattleHandler () {
-        let randomNumber = this.getRandom();
         if (this.battleIndicator.length >= 2) return;
+        this.setBattleIndicator();
+        return this.battleChecker();
+    }
+
+    setBattleIndicator() {
+        let randomNumber = this.getRandom();
         this.battleIndicator.push(this.ratio);
         this.battleIndicator.push(randomNumber);
         console.log(this.battleIndicator);
-        return this.battleChecker();
     }
 
     isbattle () {
