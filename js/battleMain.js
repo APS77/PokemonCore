@@ -1,5 +1,5 @@
 import { Pokemon } from "./pokemon_class.js";
-import { Attack } from "./attack_class.js";
+import Attack from "./attack_class.js";
 
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
@@ -24,9 +24,6 @@ const HP = "HP",
     SPATT = "SpAttack",
     SPDEF = "SpDefense",
     SPEED = "Speed",
-    PHYSICAL = "Physical",
-    SPECIAL = "Special",
-    Status = "Status",  
     // COMANDOS
     DO_ATTACK = "attack",
     DO_ATTACK_SELECTION = "selected_attack";
@@ -110,12 +107,9 @@ pokemon2.stats = {
 }
 
 // Attacks
-let scratch = new Attack("Scratch", "normal", PHYSICAL, 35, 40, 100),
-    tackle = new Attack("Tackle", "normal", PHYSICAL, 35, 50, 100),
-    slam = new Attack("Slam", "normal", PHYSICAL, 20, 80, 75);
-pokemon1.attacks.push(scratch);
-pokemon1.attacks.push(slam);
-pokemon1.attacks.push(tackle);
+pokemon1.attacks.push(Attack.scratch);
+pokemon1.attacks.push(Attack.slam);
+pokemon1.attacks.push(Attack.tackle);
 
 let battle = new Battle(pokemon1, pokemon2);
 
