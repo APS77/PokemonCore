@@ -75,13 +75,13 @@ export class BattleTile {
 
     collisionDetect(playerHitbox) {
         this.resetHitboxColor();
-        if (this.isPlayerOffTheTile(playerHitbox) ) return;
-        this.actionsOnPlayerOnTheTile();
+        this.playerOnTile =  !this.isPlayerOffTheTileChecker(playerHitbox, this.getHitbox());
+        if (this.isPlayerOffTheTile() ) return;
+        this.isThePlayerOnTheTile();
     }
 
-    isPlayerOffTheTile(playerHitbox) {
-        this.playerOnTile = false;
-        if ( this.isPlayerOffTheTileChecker(playerHitbox, this.getHitbox() )) {
+    isPlayerOffTheTile() {
+        if ( !this.playerOnTile ) {
             this.battleIndicator = [];    
             return true;
         }
@@ -95,8 +95,7 @@ export class BattleTile {
             playerHitbox.height + playerHitbox.y >= battleTile[3] + battleTile[1] + 10
     };
 
-    actionsOnPlayerOnTheTile() {
-        this.playerOnTile = true;
+    isThePlayerOnTheTile() {
         this.changeHitboxColor();
     }
 
