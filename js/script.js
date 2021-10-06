@@ -1,5 +1,5 @@
 import { overworldMusic } from "./audio.js";
-import Pokemon from './pokemon_class.js';
+import Pokemon from './Pokemon/PokemonsAPI.js';
 import { Player } from "./player_class.js";
 import { BattleTile } from "./BattleTile_class.js";
 import { inBattle } from './battleMain.js';

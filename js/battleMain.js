@@ -1,4 +1,4 @@
-import Pokemon from "./pokemon_class.js";
+import Pokemon from "./Pokemon/PokemonsAPI.js";
 import Attack from "./attack_class.js";
 
 let canvas = document.getElementById("canvas");
