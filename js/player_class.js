@@ -1,23 +1,15 @@
+import KEYS from './Keys.js';
+
 let context = canvas.getContext("2d");
 let keys = [];
 let move = false; // check if it is moving or not
-const KEYS = {
-    W: 87,
-    A: 65,
-    S: 83,
-    D: 68
-};
+const MAX_KEYS_PRESS = 2;
 
 window.addEventListener("keydown", function (e) {
-    if (keys.length == 0) {
-        keys.push(e.keyCode);
-        //console.log(keys);
-    }
-    if (keys[0] != e.keyCode && keys.length < 2) {
-        keys.push(e.keyCode);
-        //console.log(keys)
-    }
+    if (keys.length == 0) keys.push(e.keyCode);
+    if (keys[0] != e.keyCode && keys.length < MAX_KEYS_PRESS) keys.push(e.keyCode);
 });
+
 window.addEventListener("keyup", function (e) {
     if(keys[1] == e.keyCode) {
         keys.pop();
