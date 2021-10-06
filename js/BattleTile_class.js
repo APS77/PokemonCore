@@ -83,17 +83,17 @@ export class BattleTile {
         this.actionsOnPlayerOnTheTile();
     }
 
-    actionsOnPlayerOnTheTile() {
-        this.playerOnTile = true;
-        this.changeHitboxColor();
-    }
-
     isPlayerOffTheTile (playerHitbox, battleTile) {
         return playerHitbox.x >= battleTile[2] + battleTile[0] - 5 ||
             playerHitbox.width + playerHitbox.x <= battleTile[0] + 5 ||
             playerHitbox.height + playerHitbox.y <= battleTile[1] ||
             playerHitbox.height + playerHitbox.y >= battleTile[3] + battleTile[1] + 10
     };
+
+    actionsOnPlayerOnTheTile() {
+        this.playerOnTile = true;
+        this.changeHitboxColor();
+    }
 
     resetHitboxColor () {context.strokeStyle = "black";}
     changeHitboxColor () {context.strokeStyle = "red";}
