@@ -1,6 +1,12 @@
 let context = canvas.getContext("2d");
 let keys = [];
 let move = false; // check if it is moving or not
+const KEYS = {
+    W: 87,
+    A: 65,
+    S: 83,
+    D: 68
+};
 
 window.addEventListener("keydown", function (e) {
     if (keys.length == 0) {
@@ -78,7 +84,7 @@ export class Player {
     }
 
     isSomeMovementKeyPress() {
-        return keys[0] == 87 || keys[0] == 83 || keys[0] == 65 || keys[0] == 68;
+        return keys[0] == KEYS.W || keys[0] == KEYS.S || keys[0] == KEYS.A || keys[0] == KEYS.D;
     }
 
     setAllMovement(keys) {
@@ -104,7 +110,7 @@ export class Player {
     }
     // ---> Left
     leftKeyPriority(keys) {
-        return keys[0] == 65 && keys.length == 1 || keys[0] == 68 && keys[1] == 65 || keys[0] == 65 && keys[1] == 68;
+        return keys[0] == KEYS.A && keys.length == 1 || keys[0] == KEYS.D && keys[1] == KEYS.A || keys[0] == KEYS.A && keys[1] == KEYS.D;
     }
 
     leftBorderCollisionCheck() {
@@ -112,7 +118,7 @@ export class Player {
     }
     //---> Right
     rightKeyPriority(keys) {
-        return keys[0] == 68 && keys.length == 1;
+        return keys[0] == KEYS.D && keys.length == 1;
     }
 
     rightBorderCollisionCheck() {
@@ -120,7 +126,7 @@ export class Player {
     }
     // ---> Up
     upKeyPriority(keys) {
-        return keys[keys.length - 1] == 87 || keys[0] == 87 || keys[0] == 83 && keys[1] == 87 || keys[0] == 87 && keys[1] == 83;
+        return keys[keys.length - 1] == KEYS.W || keys[0] == KEYS.W || keys[0] == KEYS.S && keys[1] == KEYS.W || keys[0] == KEYS.W && keys[1] == KEYS.S;
     }
 
     upBorderCollisionCheck() {
@@ -128,7 +134,7 @@ export class Player {
     }
     // ---> Down
     downKeyPriority(keys) {
-        return keys[keys.length - 1] == 83 && keys[0] != 87 || keys[0] == 83 && keys[1] != 87;
+        return keys[keys.length - 1] == KEYS.S && keys[0] != KEYS.W || keys[0] == KEYS.S && keys[1] != KEYS.W;
     }
 
     downBorderCollisionCheck() {

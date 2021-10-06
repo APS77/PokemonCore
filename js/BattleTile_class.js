@@ -93,7 +93,7 @@ export class BattleTile {
         }
         this.playerOnTile = true;
         this.changeHitboxColor();
-        }
+    }
     
     resetHitboxColor () {context.strokeStyle = "black";}
     changeHitboxColor () {context.strokeStyle = "red";}
