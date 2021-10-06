@@ -75,13 +75,13 @@ export class BattleTile {
         // Deactivate player movement
         player.deactivate();
         // Move battle tile off screen (canvas) and set ratio to 0
-        this.deactivate();
+        //this.deactivate();
         launchBatlle();
     }
 
-    deactivate() {
+    /* deactivate() {
         this.setAttributes(-30,-30,0);
-    }
+    } */
 
     isPlayerOffTheTile (playerHitbox, battleTile) {
         return playerHitbox.x >= battleTile[2] + battleTile[0] - 5 ||

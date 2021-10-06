@@ -1,6 +1,5 @@
 import { overworldMusic } from "./audio.js";
 import { Player } from "./player_class.js";
-import { createBattle } from "./battle.js"
 import { BattleTile } from "./BattleTile_class.js";
 import { inBattle } from './battleMain.js';
 //overworldMusic.play();
