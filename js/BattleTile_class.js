@@ -75,15 +75,25 @@ export class BattleTile {
 
     collisionDetect(playerHitbox) {
         this.resetHitboxColor();
-        this.playerOnTile = false;
+        /* this.playerOnTile = false;
         if ( this.isPlayerOffTheTile(playerHitbox, this.getHitbox() )) {
             this.battleIndicator = [];    
             return;
-        }
+        } */
+        if (this.isPlayerOffTheTile(playerHitbox) ) return;
         this.actionsOnPlayerOnTheTile();
     }
 
-    isPlayerOffTheTile (playerHitbox, battleTile) {
+    isPlayerOffTheTile(playerHitbox) {
+        this.playerOnTile = false;
+        if ( this.isPlayerOffTheTileChecker(playerHitbox, this.getHitbox() )) {
+            this.battleIndicator = [];    
+            return true;
+        }
+        return false;
+    }
+
+    isPlayerOffTheTileChecker(playerHitbox, battleTile) {
         return playerHitbox.x >= battleTile[2] + battleTile[0] - 5 ||
             playerHitbox.width + playerHitbox.x <= battleTile[0] + 5 ||
             playerHitbox.height + playerHitbox.y <= battleTile[1] ||
