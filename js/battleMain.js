@@ -46,17 +46,15 @@ class Command {
 }
 
 // BATTLE MAIN ------------------------------------------------------------------------------------------
-function drawBattle(pkmn1, pkmn2) {
+function drawBattle(pkmn1Sprites, pkmn2Sprites) {
     context.drawImage(battleBG, 0, 0, canvas.width, canvas.height);
-    context.drawImage(pkmn1, 110, 130, 250, 250);
-    context.drawImage(pkmn2, 410, 70, 200, 200);
+    context.drawImage(pkmn1Sprites.back, 110, 130, 250, 250);
+    context.drawImage(pkmn2Sprites.front, 410, 70, 200, 200);
 }
 
 export function launchBatlle(player) {
     inBattle = true;
-    //player.pokemons[0].sprites.back
-    console.log(player);
-    drawBattle(player.pokemons[0].sprites.back, Pokemon.bayleef.sprites.front);
+    drawBattle(player.pokemons[0].sprites, Pokemon.bayleef.sprites);
     battleMenu();
 }
 
