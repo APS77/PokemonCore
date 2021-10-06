@@ -78,7 +78,7 @@ function runAwayButton() {
     })
 }
 
-exportfunction battleMenu() {
+export function battleMenu() {
     let battleMenu = document.createElement("div");
     battleMenu.id = "battleMenu";
     document.body.appendChild(battleMenu);
