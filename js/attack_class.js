@@ -13,12 +13,14 @@ const PHYSICAL = "Physical",
     SPECIAL = "Special",
     STATUS = "Status";  
 
-let scratch = new Attack("Scratch", "normal", PHYSICAL, 35, 40, 100),
-    tackle = new Attack("Tackle", "normal", PHYSICAL, 35, 50, 100),
-    slam = new Attack("Slam", "normal", PHYSICAL, 20, 80, 75);
+let scratch = new Attack("Scratch", "normal", PHYSICAL, 35, 5, 100),
+    tackle = new Attack("Tackle", "normal", PHYSICAL, 35, 10, 100),
+    slam = new Attack("Slam", "normal", PHYSICAL, 20, 20, 75),
+    fire_punch = new Attack("Fire Punch", "fire", PHYSICAL, 15, 15, 100);
 
 export default {
     scratch,
     tackle,
-    slam
+    slam,
+    fire_punch
 };
