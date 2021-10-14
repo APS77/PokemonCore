@@ -1,7 +1,6 @@
 import { inBattle } from './battleMain.js';
 
-const townMusicSrc = new Audio("/audio/bg1.mp3"),
-    battleMusicSrc = new Audio("/audio/burning-battlefield-battle-theme.mp3"),
+const battleMusicSrc = new Audio("/audio/burning-battlefield-battle-theme.mp3"),
     routeMusicSrc = new Audio("/audio/pokemon-anime-bgm-route-3.mp3");
 
 function routeMusic() {
@@ -11,6 +10,10 @@ function routeMusic() {
         routeMusicSrc.pause();
         routeMusicSrc.currentTime = 0;
     }
+    routeMusicSrc.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+    }, false);
 }
 
 function battleMusic() {
@@ -20,6 +23,10 @@ function battleMusic() {
         battleMusicSrc.pause();
         battleMusicSrc.currentTime = 0;
     }
+    battleMusicSrc.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+    }, false);
 }
 
 export default {
