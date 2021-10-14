@@ -55,10 +55,19 @@ function createMessage(texto) {
 */
 export function launchBatlle(player) {
     inBattle = true;
+    let sect = createSection("container", "container");
+    document.body.appendChild(sect);
     drawBattle(player.pokemons[0].sprites, Pokemon.bayleef.sprites);
     textBox();
     battleHeader(player);
     battleMenu(player); // Html Battle Buttons menu
+}
+
+function createSection(className, ID) {
+    let sect = document.createElement("section");
+    sect.className = className;
+    sect.id = ID;
+    return sect;
 }
 /* 
 #####################
@@ -109,7 +118,7 @@ function textBoxLinesHandler(lines) {
 function battleHeader(player) {
     if ( !document.getElementById("battleHeader") ) {
         let div = createDiv("battleHeader");
-        document.body.appendChild(div);
+        document.getElementsByClassName("container")[0].appendChild(div);
     }
     playerPkmnInfo(player);
     wildPkmnInfo();
@@ -117,6 +126,7 @@ function battleHeader(player) {
 
 function playerPkmnInfo(player) {
     let pkmn1 = createDiv("playerPkmnInfo");
+    pkmn1.className = "pokemonInfo";
     document.getElementById("battleHeader").appendChild(pkmn1);
     showPlayerPkmnName(player);
     showPlayerPkmnHP(player);
@@ -124,6 +134,7 @@ function playerPkmnInfo(player) {
 
 function wildPkmnInfo() {
     let pkmn2 = createDiv("wildPkmnInfo");
+    pkmn2.className = "pokemonInfo";
     document.getElementById("battleHeader").appendChild(pkmn2);
     showWildPkmnName();
     showWildPkmnHP();
@@ -155,9 +166,11 @@ function showWildPkmnHP() {
 */
 function battleMenu(player) {
     let div = createDiv("battleMenu");
-    document.body.appendChild(div);
+    document.getElementsByClassName("container")[0].appendChild(div);
     let msg = createMessage(`What should ${Pokemon.furret.name} do?`);
     document.getElementById("battleMenu").appendChild(msg);
+    let sect = createSection("battleMain","battleButtons");
+    document.getElementById("battleMenu").appendChild(sect);
     attackButton(player);
     runAwayButton(player);
 }
@@ -175,10 +188,12 @@ function attackButton(player) {
         backButton(player);
 
     })
-    document.getElementById("battleMenu").appendChild(btn);
+    document.getElementById("battleButtons").appendChild(btn);
 }
 
 function showPokemonAttacks(player) {
+    let sect = createSection("attacks","attackButtons");
+    document.getElementById("attackMenu").appendChild(sect);
     for (let i = 0; i < 4; i++) {
         showAttackBtn(i, player);
     }
@@ -190,7 +205,7 @@ function showAttackBtn(i, player) {
         damageDealer(i, player)
         battleChecker(player);
     });
-    document.getElementById("attackMenu").appendChild(btn);
+    document.getElementById("attackButtons").appendChild(btn);
 }
 
 function damageDealer(i, player) {
@@ -224,9 +239,8 @@ function endBattle (player) {
 }
 
 function clearBattleHTML() {
+    document.getElementsByClassName("container")[0].remove();
     document.getElementById("textBox").remove();
-    document.getElementById("battleHeader").remove();
-    document.getElementById("battleMenu").remove();
 }
 // Back
 function backButton(player) {
@@ -247,7 +261,7 @@ function resetBattleMenu(player) {
 // Run Away
 function runAwayButton(player) {
     let btn = createButton("Run Away");
-    document.getElementById("battleMenu").appendChild(btn);
+    document.getElementById("battleButtons").appendChild(btn);
     btn.addEventListener("click", function () {
         pushTextLine("You got away safely!");
         setTimeout(function() {endBattle(player);}, 2000);
