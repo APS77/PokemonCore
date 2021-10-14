@@ -14,38 +14,6 @@ battleBG.src = "img/battle/battle3.png";
 
 export let inBattle = false;
 
-const DO_ATTACK = "attack",
-    DO_ATTACK_SELECTION = "selected_attack";
-
-class Battle {
-    constructor(pkmn1, pkmn2) {
-        this.pkmn1 = pkmn1;
-        this.pkmn2 = pkmn2;
-        this.currentTurn = 0;
-    }
-
-    isFinished() {
-        return this.pkmn1.currentHP <= 0 || this.pkmn2.currentHP <= 0 // si algun pokemon fue debilitado
-    }
-}
-
-class Turn {
-    constructor() {
-        this.command1 = null;
-        this.command2 = null;
-    }
-
-    canStart() {
-        return this.command1 != null && this.command2 != null;
-    }
-}
-
-class Command {
-    constructor(action) {
-        this.action = action; // Por ejemplo atacar
-    }
-}
-
 // BATTLE MAIN ------------------------------------------------------------------------------------------
 
 // Attacks
@@ -53,8 +21,6 @@ Pokemon.furret.attacks.push(Attack.scratch);
 Pokemon.furret.attacks.push(Attack.slam);
 Pokemon.furret.attacks.push(Attack.tackle);
 Pokemon.furret.attacks.push(Attack.fire_punch);
-
-new Battle(Pokemon.furret, Pokemon.bayleef);
 
 // USEFUL FUNCTIONS FOR HTML
 function clearBox(elementID) {
@@ -90,9 +56,9 @@ function createMessage(texto) {
 export function launchBatlle(player) {
     inBattle = true;
     drawBattle(player.pokemons[0].sprites, Pokemon.bayleef.sprites);
+    textBox();
     battleHeader(player);
     battleMenu(player); // Html Battle Buttons menu
-    textBox();
 }
 /* 
 #####################
@@ -108,6 +74,32 @@ function drawBattle(pkmn1Sprites, pkmn2Sprites) {
 function drawBattleWin(pkmn1Sprites) {
     context.drawImage(battleBG, 0, 0, canvas.width, canvas.height);
     context.drawImage(pkmn1Sprites.back, 110, 130, 250, 250);
+}
+/*
+############
+# Text Box #
+############
+*/
+function textBox() {
+    let txtbox = createDiv("textBox");
+    document.body.appendChild(txtbox);
+    pushTextLine(`A wild ${Pokemon.bayleef.name} appeared!`);
+    pushTextLine("---");
+    pushTextLine("---");
+    pushTextLine("---");
+}
+
+function pushTextLine(text) {
+    textBoxLinesHandler(4);
+    let msg = createMessage(text);
+    document.getElementById("textBox").appendChild(msg);
+}
+
+function textBoxLinesHandler(lines) {
+    let textbox = document.getElementById("textBox");
+    if ( textbox.childElementCount > lines-1 ) {
+        textbox.removeChild(textbox.firstChild);
+    }
 }
 /* 
 #####################
@@ -167,7 +159,7 @@ function battleMenu(player) {
     let msg = createMessage(`What should ${Pokemon.furret.name} do?`);
     document.getElementById("battleMenu").appendChild(msg);
     attackButton(player);
-    runAwayButton();
+    runAwayButton(player);
 }
 
 function attackButton(player) {
@@ -180,7 +172,7 @@ function attackButton(player) {
         let msg = createMessage("Choose your move:");
         document.getElementById("attackMenu").appendChild(msg);
         showPokemonAttacks(player);
-        backButton();
+        backButton(player);
 
     })
     document.getElementById("battleMenu").appendChild(btn);
@@ -224,62 +216,40 @@ function battleChecker(player) {
 }
 
 function endBattle (player) {
-    removeBattleMenu();
+    clearBattleHTML();
     Pokemon.bayleef.currentHP = Pokemon.bayleef.baseStats.HP;
     inBattle = false;
     player.activate();
     startAnimating(30);
 }
 
-function removeBattleMenu() {
+function clearBattleHTML() {
+    document.getElementById("textBox").remove();
     document.getElementById("battleHeader").remove();
     document.getElementById("battleMenu").remove();
-    document.getElementById("textBox").remove();
 }
-
-function backButton() {
+// Back
+function backButton(player) {
     let btn = createButton("Back");
     btn.addEventListener("click", function () {
         console.log("Clicked on Back!");
-        resetBattleMenu();
+        resetBattleMenu(player);
     })
     document.getElementById("battleMenu").appendChild(btn);
 }
 
-function resetBattleMenu() {
-    clearBox("battleMenu");
-    battleMenu();
+function resetBattleMenu(player) {
+    document.getElementById("battleHeader").remove();
+    document.getElementById("battleMenu").remove();
+    battleHeader(player);
+    battleMenu(player);
 }
-
-function runAwayButton() {
+// Run Away
+function runAwayButton(player) {
     let btn = createButton("Run Away");
     document.getElementById("battleMenu").appendChild(btn);
     btn.addEventListener("click", function () {
-        document.getElementById("battleHeader").remove();
-        document.getElementById("battleMenu").remove();
         pushTextLine("You got away safely!");
+        setTimeout(function() {endBattle(player);}, 2000);
     })
-}
-/*
-############
-# Text Box #
-############
-*/
-function textBox() {
-    let txtbox = createDiv("textBox");
-    document.body.appendChild(txtbox);
-    pushTextLine(`A wild ${Pokemon.bayleef.name} appeared!`);
-}
-
-function pushTextLine(text) {
-    textBoxLinesHandler(4);
-    let msg = createMessage(text);
-    document.getElementById("textBox").appendChild(msg);
-}
-
-function textBoxLinesHandler(lines) {
-    let textbox = document.getElementById("textBox");
-    if ( textbox.childElementCount > lines-1 ) {
-        textbox.removeChild(textbox.firstChild);
-    }
 }
