@@ -7,7 +7,7 @@ let furret = new Pokemon({
     type1: "normal",
     type2: null,
     imgPaths: {
-        front: '',
+        front: 'img/pokemons/front/spr_bw_162.png',
         back: 'img/pokemons/back/b_bw_162.png'
     }
 });
@@ -31,7 +31,7 @@ let bayleef = new Pokemon({
     type2: null,
     imgPaths: {
         front: 'img/pokemons/front/spr_bw_153.png',
-        back: ''
+        back: 'img/pokemons/back/b_bw_153.png'
     }
 });
 
