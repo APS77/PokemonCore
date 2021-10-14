@@ -1,1 +1,81 @@
-/* */
+body {
+    background-color: burlywood;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#canvas {
+    border: 10px solid black;
+    border-radius: 20px;
+}
+
+button {
+    padding: 5px;
+    display: flex;
+    margin: 5px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+p {
+    padding: 5px;
+    margin: 0;
+    font-weight: bold;
+}
+
+#textBox {
+    max-width: 755px;
+    background-color: honeydew;
+    border: 3px solid black;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.container {
+    max-width: 738px;
+    border: 1px solid black;
+    background-color: goldenrod;
+    display: flex;
+    padding: 20px;
+    justify-content: space-around;
+}
+
+#battleHeader {
+    background-color: honeydew;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.pokemonInfo {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+#battleMenu {
+    background-color: honeydew;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+#attackMenu {
+    display: flex;
+    flex-direction: column;
+}
+
+.battleMain {
+    display: flex;
+    justify-content: space-around;
+}
+
+.attacks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#Back_btn {
+    width: 50px;
+    justify-content: center;
+}
