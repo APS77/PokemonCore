@@ -1,9 +1,11 @@
-import { overworldMusic } from "./audio.js";
+import Music from "./audio.js";
 import Pokemon from './Pokemon/PokemonsAPI.js';
 import { Player } from "./player_class.js";
 import { BattleTile } from "./BattleTile_class.js";
 import { inBattle } from './battleMain.js';
-//overworldMusic.play();
+
+Music.routeMusic();
+
 /*
 const config = {
     debug: false
