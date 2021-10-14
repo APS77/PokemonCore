@@ -55,7 +55,7 @@ function overWorld(animate) {
     requestAnimationFrame(animate);
 }
 
-function startAnimating (fps) {
+export function startAnimating (fps) {
     fpsInterval = 1000/fps;
     then = Date.now();
     startTime = then;
