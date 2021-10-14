@@ -55,23 +55,72 @@ function drawBattle(pkmn1Sprites, pkmn2Sprites) {
 export function launchBatlle(player) {
     inBattle = true;
     drawBattle(player.pokemons[0].sprites, Pokemon.bayleef.sprites);
-    battleMenu();
+    // call a function that show pokemon names and its hps
+    battleHeader(player);
+    battleMenu(); // Html Battle Buttons menu
+}
+
+// ### Battle HEADER ###
+
+function battleHeader(player) {
+    let div = createDiv("battleHeader");
+    document.body.appendChild(div);
+    playerPkmnInfo(player);
+    wildPkmnInfo();
+}
+
+function playerPkmnInfo(player) {
+    let pkmn1 = createDiv("playerPkmnInfo");
+    document.getElementById("battleHeader").appendChild(pkmn1);
+    showPlayerPkmnName(player);
+    showPlayerPkmnHP(player);
+}
+
+function wildPkmnInfo() {
+    let pkmn2 = createDiv("wildPkmnInfo");
+    document.getElementById("battleHeader").appendChild(pkmn2);
+    showWildPkmnName();
+    showWildPkmnHP();
+}
+
+function showPlayerPkmnName(player) {
+    let msg = createMessage(player.pokemons[0].name);
+    document.getElementById("playerPkmnInfo").appendChild(msg);
+}
+
+function showWildPkmnName() {
+    let msg = createMessage(Pokemon.bayleef.name);
+    document.getElementById("wildPkmnInfo").appendChild(msg);
+}
+
+function showPlayerPkmnHP(player) {
+    let msg = createMessage("HP: "+ player.pokemons[0].currentHP + "/" + player.pokemons[0].baseStats.HP);
+    document.getElementById("playerPkmnInfo").appendChild(msg);
+}
+
+function showWildPkmnHP() {
+    let msg = createMessage("HP: "+ Pokemon.bayleef.currentHP + "/" + Pokemon.bayleef.baseStats.HP);
+    document.getElementById("wildPkmnInfo").appendChild(msg);
 }
 
 // Attacks
 Pokemon.furret.attacks.push(Attack.scratch);
 Pokemon.furret.attacks.push(Attack.slam);
 Pokemon.furret.attacks.push(Attack.tackle);
+Pokemon.furret.attacks.push(Attack.fire_punch);
 
 new Battle(Pokemon.furret, Pokemon.bayleef);
 
 /*###########################
   ### Battle menu buttons ###
   ###########################*/
+function showPokemonAttacks() {
+    for (let i = 0; i < 4; i++) {
+        showAttackBtn(i);
+    }
+}
 function showAttackBtn(i) {
-    let btn = document.createElement("button");
-    //btn.textContent = Pokemon.furret.attacks[i].name;
-    btn.insertAdjacentText('afterbegin', Pokemon.furret.attacks[i].name);
+    let btn = createButton(Pokemon.furret.attacks[i].name);
     btn.addEventListener("click", function () {
         console.log(`${Pokemon.furret.name} used ${Pokemon.furret.attacks[i].name}!`);
     });
@@ -85,8 +134,7 @@ function resetBattleMenu() {
 }
 
 function backButton() {
-    let btn = document.createElement("button");
-    btn.innerHTML = "Back";
+    let btn = createButton("Back");
     btn.addEventListener("click", function () {
         console.log("Clicked on Back!");
         resetBattleMenu();
@@ -101,6 +149,12 @@ function clearBox(elementID) {
     }
 }
 
+function createButton(text) {
+    let btn = document.createElement("button");
+    btn.insertAdjacentText('afterbegin', text);
+    return btn;
+}
+
 function createDiv(elementID) {
     let div = document.createElement("div");
     div.id = elementID;
@@ -113,6 +167,8 @@ function createMessage(texto) {
     return msg;
 }
 
+
+
 function attackButton() {
     let btn = document.createElement("button");
     btn.id = "attackBtn";
@@ -124,9 +180,7 @@ function attackButton() {
         document.getElementById("battleMenu").appendChild(div);
         let msg = createMessage("Choose your move:");
         document.getElementById("attackMenu").appendChild(msg);
-        showAttackBtn(0);
-        showAttackBtn(1);
-        showAttackBtn(2);
+        showPokemonAttacks();
         backButton();
 
     })
@@ -147,12 +201,10 @@ function runAwayButton() {
 }
 
 function battleMenu() {
-    let battleMenu = document.createElement("div");
-    battleMenu.id = "battleMenu";
-    document.body.appendChild(battleMenu);
-    let para = document.createElement("P");
-    para.innerText = `What should ${Pokemon.furret.name} do?`;
-    document.getElementById("battleMenu").appendChild(para);
+    let div = createDiv("battleMenu");
+    document.body.appendChild(div);
+    let msg = createMessage(`What should ${Pokemon.furret.name} do?`);
+    document.getElementById("battleMenu").appendChild(msg);
     attackButton();
     runAwayButton();
 }
