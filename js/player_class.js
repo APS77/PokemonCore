@@ -68,6 +68,11 @@ export class Player {
         this.canMove = false;
         this.moving = false;
     }
+
+    activate() {
+        this.canMove = true;
+        this.moving = true;
+    }
     // Movement
     setMoveSentinels() {
         if (move == false) this.moving = false;
