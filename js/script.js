@@ -49,8 +49,8 @@ function overWorld(animate) {
     context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
     grass1.drawTile();
     player.drawSprite();
-    grass1.showHitbox(context);
-    player.showHitbox(context);
+    //grass1.showHitbox(context);
+    //player.showHitbox(context);
     grass1.collisionDetect( player.getHitboxCoordinates() );
     grass1.battleLauncher(player);
     player.update();
