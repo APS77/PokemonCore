@@ -9,11 +9,17 @@ body {
 }
 
 button {
+    background-color: blanchedalmond;
     padding: 5px;
     display: flex;
     margin: 5px;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: burlywood;
 }
 
 p {
