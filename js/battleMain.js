@@ -2,6 +2,7 @@ import Pokemon from "./Pokemon/PokemonsAPI.js";
 import Attack from "./attack_class.js";
 import { startAnimating } from "./script.js";
 import Music from "./audio.js";
+import PokemonsAPI from "./Pokemon/PokemonsAPI.js";
 
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
@@ -67,9 +68,9 @@ export function launchBatlle(player) {
     let enemyPokemon = Pokemon.bayleef,
         playerPokemon = player.pokemons[0];
     drawBattle(playerPokemon.sprites, enemyPokemon.sprites);
+    textBox();
     battleHeader(playerPokemon, enemyPokemon);
     battleMenu(player, playerPokemon, enemyPokemon); // Html Battle Buttons menu
-    textBox();
 }
 
 function createSection(className, ID) {
@@ -105,7 +106,7 @@ function drawBattleLose(pkmn2Sprites) {
 */
 function textBox() {
     let txtbox = createDiv("textBox");
-    document.body.appendChild(txtbox);
+    document.getElementsByClassName("container")[0].appendChild(txtbox);
     pushTextLine(`A wild ${Pokemon.bayleef.name} appeared!`);
     pushTextLine("---");
     pushTextLine("---");
@@ -214,6 +215,7 @@ function showPokemonAttacks(player) {
 }
 function showAttackBtn(i, player, playerPokemon) {
     let btn = createButton(playerPokemon.attacks[i].name);
+    btn.className = "attacks_child";
     btn.addEventListener("click", function () {
         if ( speedCheck (playerPokemon, Pokemon.bayleef) ) {
             damageDealer(i, player, playerPokemon, Pokemon.bayleef);
@@ -294,7 +296,6 @@ function endBattle (player, playerPokemon, enemyPokemon) {
 
 function clearBattleHTML() {
     document.getElementsByClassName("container")[0].remove();
-    document.getElementById("textBox").remove();
 }
 // Back
 function backButton(player, playerPokemon, enemyPokemon) {
@@ -309,7 +310,7 @@ function backButton(player, playerPokemon, enemyPokemon) {
 function resetBattleMenu(player, playerPokemon, enemyPokemon) {
     document.getElementById("battleHeader").remove();
     document.getElementById("battleMenu").remove();
-    battleHeader(player);
+    battleHeader(playerPokemon, enemyPokemon);
     battleMenu(player, playerPokemon, enemyPokemon);
 }
 // Run Away
