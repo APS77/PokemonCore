@@ -96,7 +96,6 @@ function backButton() {
 
 function clearBox(elementID) {
     let div = document.getElementById(elementID);
-
     while (div.firstChild) {
         div.removeChild(div.firstChild);
     }
@@ -142,8 +141,7 @@ function runAwayButton() {
     btn.addEventListener("click", function () {
         console.log("You got away safely!")
         clearBox("battleMenu");
-        let msg = document.createElement("p");
-        msg.innerText = "You got away safely!";
+        let msg = createMessage("You got away safely!");
         document.getElementById("battleMenu").appendChild(msg);
     })
 }
