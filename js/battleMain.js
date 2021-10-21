@@ -1,8 +1,7 @@
 import Pokemon from "./Pokemon/PokemonsAPI.js";
-import Attack from "./attack_class.js";
+import Attack from "./Attack.js";
 import { startAnimating } from "./script.js";
 import Music from "./audio.js";
-import PokemonsAPI from "./Pokemon/PokemonsAPI.js";
 
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
@@ -18,17 +17,11 @@ export let inBattle = false;
 
 // BATTLE MAIN ------------------------------------------------------------------------------------------
 
-// Furret Attacks
-Pokemon.furret.attacks.push(Attack.scratch);
-Pokemon.furret.attacks.push(Attack.slam);
-Pokemon.furret.attacks.push(Attack.tackle);
-Pokemon.furret.attacks.push(Attack.fire_punch);
-
 // Bayleef Attacks
 Pokemon.bayleef.attacks.push(Attack.tackle);
 Pokemon.bayleef.attacks.push(Attack.razor_leaf);
 
-// USEFUL FUNCTIONS FOR HTML
+// USEFUL FUNCTIONS FOR HTML 
 function clearBox(elementID) {
     let div = document.getElementById(elementID);
     while (div.firstChild) {

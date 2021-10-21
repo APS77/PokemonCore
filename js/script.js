@@ -1,16 +1,16 @@
 import Music from "./audio.js";
 import Pokemon from './Pokemon/PokemonsAPI.js';
-import { Player } from "./player_class.js";
-import { BattleTile } from "./BattleTile_class.js";
+import { Player } from "./Player.js";
+import { BattleTile } from "./BattleTile.js";
 import { inBattle } from './battleMain.js';
+import Attack from "./Attack.js";
 
 Music.routeMusic();
 
-/*
 const config = {
     debug: false
 };
-*/
+
 
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
@@ -35,6 +35,11 @@ grass1.setAttributes(50, 200, 40); //(x,y,ratio)
 let player = new Player (playerSprite);
 player.setPosition(25, 65);
 player.addPokemonToTheParty(Pokemon.furret);
+// Furret Attacks
+player.pokemons[0].attacks.push(Attack.scratch);
+player.pokemons[0].attacks.push(Attack.slam);
+player.pokemons[0].attacks.push(Attack.tackle);
+player.pokemons[0].attacks.push(Attack.fire_punch);
 
 function animate () {
     if (!inBattle) overWorld(animate);
@@ -49,12 +54,11 @@ function overWorld(animate) {
     context.drawImage(imagenFondo, 0, 0, canvas.width, canvas.height);
     grass1.drawTile();
     player.drawSprite();
-    //grass1.showHitbox(context);
-    //player.showHitbox(context);
     grass1.collisionDetect( player.getHitboxCoordinates() );
     grass1.battleLauncher(player);
     player.update();
     requestAnimationFrame(animate);
+    debugIfItIsNecessary();
 }
 
 export function startAnimating (fps) {
@@ -62,6 +66,12 @@ export function startAnimating (fps) {
     then = Date.now();
     startTime = then;
     animate();
+}
+
+function debugIfItIsNecessary() {
+    if (!config.debug) return;
+    grass1.showHitbox(context);
+    player.showHitbox(context);
 }
 
 startAnimating(30);
